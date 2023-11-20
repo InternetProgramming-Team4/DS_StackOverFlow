@@ -9,28 +9,46 @@ body {
     height: 100vh; /* 전체 높이 */
 }
 
-/* 헤더 스타일 */
-#header {
-    width: 100%;
+#logo-container {
+    display: flex; /* 로고를 위한 컨테이너 추가 */
+    align-items: center;
     background-color: white;
-    color: black;
-    display: flex;
-
-    align-items: center; /* 로고와 텍스트를 수직 중앙에 맞춤 */
 }
 
-#auth-buttons {
-    /* 버튼을 오른쪽에 배치 */
+/* 헤더 스타일 */
+#header {
+    background-color: rgb(183, 0, 80); /* 배경색 변경 */
     display: flex;
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 정렬 */
     align-items: center;
 }
 
-#login-btn,
-#signup-btn {
-    margin-left: 10px; /* 버튼 사이의 간격 */
-    padding: 8px 16px; /* 버튼 안쪽 여백 */
-    font-size: 1rem; /* 글씨 크기 */
-    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+#header img {
+    /* 로고 이미지 스타일 */
+    height: 50px; /* 높이 설정 */
+}
+
+#header-title {
+    flex-grow: 1; /* 타이틀을 가운데로 이동 */
+    text-align: center; /* 가운데 정렬 */
+    font-weight: bold;
+    font-size: larger;
+    color: white;
+}
+
+#auth-links {
+    /* 로그인 및 회원가입 링크를 위한 스타일 */
+    display: flex; /* 로그인 및 회원가입 링크를 옆으로 나란히 배치 */
+}
+
+.auth-link {
+    margin-right: 20px;
+    color: white; /* 글씨 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.auth-link:hover {
+    text-decoration: none; /* 호버 상태에서도 밑줄이 나타나지 않도록 설정 */
 }
 
 #header span {
@@ -47,7 +65,7 @@ body {
 #header img {
     width: 50px; /* 이미지의 너비 */
     height: 50px; /* 이미지의 높이 */
-    margin-right: 10px; /* 로고와 텍스트 사이의 여백 */
+    margin-right: 0; /* 로고와 텍스트 사이의 여백 */
 }
 
 #footer {
