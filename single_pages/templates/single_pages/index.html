@@ -1,31 +1,44 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="ko">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>웹페이지 예시</title>
-        <link rel="stylesheet" href="{% static 'single_pages/style.css' %}" media="screen">
+        <link
+            rel="stylesheet"
+            href="{% static 'single_pages/index/style.css' %}"
+        />
     </head>
     <body>
         <header id="header">
             <!-- 헤더 -->
-            <img
-                src="{% static 'single_pages/image/duksung_symbol.png' %}"
-                alt="로고"
-            />
-            <span>DS StackOverFlow</span>
-            <div id="auth-buttons">
-                <button id="login-btn">로그인</button>
-                <button id="signup-btn">회원가입</button>
+            <div id="logo-container">
+                <img
+                    src="{% static 'single_pages/index/image/duksung_symbol.png' %}"
+                    alt="로고"
+                />
+            </div>
+            <div id="header-title">DS StackOverFlow</div>
+            <div id="auth-links">
+                <a href="{% url 'login' %}" id="login-link" class="auth-link"
+                    >Log in</a
+                >
+
+                <a
+                    href="/single_pages/static/single_pages/image/duksung.symbol.png"
+                    id="register-link"
+                    class="auth-link"
+                    >Register</a
+                >
             </div>
         </header>
         <div id="content-area">
             <nav id="navbar">
                 <!-- 네비게이션 바 -->
-                <a href="/" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Home</a>
                 <a href="#" class="nav-link">질문 탭</a>
-                <a href="/MyPage/" class="nav-link"
+                <a href="/DS_StackOverFlow/Front/MyPage.html" class="nav-link"
                     >My Page</a
                 >
             </nav>

@@ -5,13 +5,17 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>웹페이지 예시</title>
-        <link rel="stylesheet" href="{% static 'single_pages/style.css' %}" media="screen">
+        <link
+            rel="stylesheet"
+            href="{% static 'single_pages/index/style.css' %}"
+            media="screen"
+        />
     </head>
     <body>
         <header id="header">
             <!-- 헤더 -->
             <img
-                src="{% static 'single_pages/image/duksung_symbol.png' %}"
+                src="{% static 'single_pages/index/image/duksung_symbol.png' %}"
                 alt="로고"
             />
             <span>DS StackOverFlow</span>
@@ -21,9 +25,7 @@
                 <!-- 네비게이션 바 -->
                 <a href="/" class="nav-link">Home</a>
                 <a href="#" class="nav-link">질문 탭</a>
-                <a href="/MyPage/" class="nav-link"
-                    >My Page</a
-                >
+                <a href="/MyPage/" class="nav-link">My Page</a>
             </nav>
             <main id="main-content">
                 <!-- 메인 컨텐츠 -->
