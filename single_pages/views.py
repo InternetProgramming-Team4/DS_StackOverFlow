@@ -12,3 +12,15 @@ def user(request):
         request,
         'single_pages/MyPage.html'
     )
+
+def login(request):
+    return render(
+        request,
+        'single_pages/login.html'
+    )
+
+def signup(request):
+    return render(
+        request,
+        'single_pages/signup.html'
+    )
