@@ -15,7 +15,7 @@
             <!-- 헤더 -->
             <div id="logo-container">
                 <img
-                    src="{% static 'single_pages/index/image/duksung_symbol.png' %}"
+                    src="{% static 'single_pages/images/duksung_symbol.png' %}"
                     alt="로고"
                 />
             </div>
@@ -26,10 +26,10 @@
                 >
 
                 <a
-                    href="/single_pages/static/single_pages/image/duksung.symbol.png"
+                    href="{% url 'signup' %}"
                     id="register-link"
                     class="auth-link"
-                    >Register</a
+                    >Sign Up</a
                 >
             </div>
         </header>

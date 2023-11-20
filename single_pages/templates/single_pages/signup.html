@@ -1,10 +1,141 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <title>Sign Up 01</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
 
-</body>
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'single_pages/signup/css/style.css' %}"
+        />
+    </head>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .login-wrap img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block; /* 이미지를 블록 요소로 설정하여 가운데 정렬 가능하도록 함 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .signup-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+    </style>
+
+    <body>
+        <section class="ftco-section">
+            <div class="container">
+                {% comment %}
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section"></h2>
+                    </div>
+                </div>
+                {% endcomment %}
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-lg-6 col-xl-5">
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="login-center">
+                                <img
+                                    src="{% static 'single_pages/images/duksung_symbol.png' %}"
+                                    alt="Duksung Symbol"
+                                    style="width: 100px; height: auto"
+                                />
+                            </div>
+                            <h3 class="text-center mb-4">
+                                Create Your Account
+                            </h3>
+                            <form action="#" class="signup-form">
+                                <div class="form-group">
+                                    <label class="label" for="name"
+                                        >Full Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Duksung"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label class="label" for="email"
+                                        >Email Address</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="duksung@duksung.ac.kr"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label class="label" for="password"
+                                        >Password</label
+                                    >
+                                    <input
+                                        id="password-field"
+                                        type="password"
+                                        class="form-control"
+                                        placeholder="Password"
+                                    />
+                                    <span
+                                        toggle="#password-field"
+                                        class="fa fa-fw fa-eye field-icon toggle-password"
+                                    ></span>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-100 text-left">
+                                        <label
+                                            class="checkbox-wrap checkbox-primary"
+                                            >I agree all statements in terms of
+                                            service
+                                            <input type="checkbox" checked />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="form-control btn btn-primary rounded submit px-3"
+                                >
+                                    Sign Up
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>
