@@ -2215,8 +2215,6 @@ textarea.form-control {
     margin-bottom: 1rem;
 }
 
-
-
 .form-text {
     display: block;
     margin-top: 0.25rem;
@@ -10720,7 +10718,7 @@ h5,
     -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
     box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
 }
-.login-wrap h3 {
+.login-wrap 
     font-weight: 700;
     font-size: 20px;
     color: rgb(183, 0, 80);
