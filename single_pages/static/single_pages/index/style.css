@@ -1,0 +1,115 @@
+/* style.css 파일 내용 */
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 전체 높이 */
+}
+
+#logo-container {
+    display: flex; /* 로고를 위한 컨테이너 추가 */
+    align-items: center;
+    background-color: white;
+}
+
+/* 헤더 스타일 */
+#header {
+    background-color: rgb(183, 0, 80); /* 배경색 변경 */
+    display: flex;
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 정렬 */
+    align-items: center;
+}
+
+#header img {
+    /* 로고 이미지 스타일 */
+    height: 50px; /* 높이 설정 */
+}
+
+#header-title {
+    flex-grow: 1; /* 타이틀을 가운데로 이동 */
+    text-align: center; /* 가운데 정렬 */
+    font-weight: bold;
+    font-size: larger;
+    color: white;
+}
+
+#auth-links {
+    /* 로그인 및 회원가입 링크를 위한 스타일 */
+    display: flex; /* 로그인 및 회원가입 링크를 옆으로 나란히 배치 */
+}
+
+.auth-link {
+    margin-right: 20px;
+    color: white; /* 글씨 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.auth-link:hover {
+    text-decoration: none; /* 호버 상태에서도 밑줄이 나타나지 않도록 설정 */
+}
+
+#header span {
+    width: 100%;
+    background-color: rgb(183, 0, 80);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1em;
+    display: flex;
+}
+
+/* 헤더 로고 이미지 스타일 */
+#header img {
+    width: 50px; /* 이미지의 너비 */
+    height: 50px; /* 이미지의 높이 */
+    margin-right: 0; /* 로고와 텍스트 사이의 여백 */
+}
+
+#footer {
+    width: 100%;
+    background-color: rgb(183, 0, 80);
+    color: white;
+    padding: 1em;
+}
+
+/* 컨텐츠 영역 스타일 */
+#content-area {
+    display: flex;
+    flex: 1; /* 남은 공간을 모두 차지 */
+}
+
+/* 네비게이션 바 스타일 */
+#navbar {
+    flex: 0 0 200px; /* 너비를 200px로 고정 */
+    background-color: #f0f0f0;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+/* 메인 컨텐츠 스타일 */
+#main-content {
+    flex-grow: 1;
+    background-color: #ffffff;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+/* 사이드바 스타일 */
+#sidebar {
+    flex: 0 0 150px; /* 너비를 150px로 고정 */
+    background-color: #f9f9f9;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+/* 네비게이션 및 사이드바 링크 스타일 */
+.nav-link,
+.sidebar-link {
+    display: block;
+    padding: 0.5em 0;
+    text-decoration: none;
+    color: black;
+}

@@ -1,4 +1,3 @@
-{%load static %}
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
     <head>
@@ -25,47 +24,51 @@
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="{% static 'single_pages/index/images/duksung_symbol.png' %}"
+            href="../assets/images/favicon.png"
         />
         <!-- Custom CSS -->
         <link
-            href="{% static 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
+            href="../assets/libs/chartist/dist/chartist.min.css"
             rel="stylesheet"
         />
         <link
-            href="{% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css' %}"
+            href="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css"
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link
-            href="{% static 'single_pages/index/dist/css/style.min.css' %}"
-            rel="stylesheet"
-        />
-
+        <link href="../dist/css/style.min.css" rel="stylesheet" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <!DOCTYPE html>
+        <html dir="ltr" lang="en">
+            <head>
+                <style>
+                    /* 기존의 스타일 */
+                    .logo-icon img,
+                    .logo-text {
+                        /* 이미지와 텍스트 사이의 여백을 없애기 위해 margin과 padding 값을 조정합니다 */
+                        margin: 0;
+                        padding: 0;
+                    }
 
-        <style>
-            .logo-icon img,
-            .logo-text {
-                /* 이미지와 텍스트 사이의 여백을 없애기 위해 margin과 padding 값을 조정합니다 */
-                margin: 0;
-                padding: 0;
-            }
-
-            /* 로고 이미지와 텍스트를 가운데 정렬하기 위한 스타일 */
-            .navbar-brand {
-                /* Flex 컨테이너 설정 */
-                display: flex;
-                flex-direction: row; /* 요소들을 가로로 나열 */
-                justify-content: center; /* 수평 중앙 정렬 */
-                align-items: center; /* 수직 중앙 정렬 */
-            }
-        </style>
+                    /* 로고 이미지와 텍스트를 가운데 정렬하기 위한 스타일 */
+                    .navbar-brand {
+                        /* Flex 컨테이너 설정 */
+                        display: flex;
+                        flex-direction: row; /* 요소들을 가로로 나열 */
+                        justify-content: center; /* 수평 중앙 정렬 */
+                        align-items: center; /* 수직 중앙 정렬 */
+                    }
+                </style>
+            </head>
+            <body>
+                <!-- ... body contents ... -->
+            </body>
+        </html>
     </head>
 
     <body>
@@ -105,7 +108,7 @@
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Light Logo icon -->
                                 <img
-                                    src="{% static 'single_pages/index/images/duksung_symbol.png' %}"
+                                    src="../assets/images/duksung_symbol.png"
                                     alt="Duksung Symbol"
                                     style="width: 60px; height: auto"
                                 />
@@ -178,7 +181,7 @@
                                 >
                                     <!-- 유저 사진 -->
                                     <img
-                                        src="{%static 'single_pages/index/images/duksung_symbol.png'%}"
+                                        src="../assets/images/duksung_symbol.png"
                                         alt="user"
                                         class="rounded-circle"
                                         width="31"
