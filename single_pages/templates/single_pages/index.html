@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html dir="ltr" lang="en">
     <head>
         <meta charset="utf-8" />
@@ -26,26 +26,26 @@
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="{% static 'single_pages/index/assets/images/favicon.png' %}"
+            href="{% static 'single_pages/index/images/favicon.png' %}"
         />
 
         <!-- Custom CSS -->
         <link
             href=" {% static
-                'single_pages/index/assets/libs/chartist/dist/chartist.min.css' %}"
+                'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
             rel="stylesheet"
         />
 
         <link
             href="{% static
-        'single_pages/index/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css'
+        'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css'
         %}"
             rel="stylesheet"
         />
 
         <!-- Custom CSS -->
         <link
-            href="{% static 'single_pages/index/dist/css/style.css' %}"
+            href="{% static 'single_pages/index/css/style.css' %}"
             rel="stylesheet"
         />
 
@@ -111,7 +111,7 @@
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Light Logo icon -->
                                 <img
-                                    src="{%static '/single_pages/index/assets/images/duksung_symbol.png'%}"
+                                    src="{%static '/single_pages/index/images/duksung_symbol.png'%}"
                                     alt="Duksung Symbol"
                                     style="width: 60px; height: auto"
                                 />
@@ -184,7 +184,8 @@
                                 >
                                     <!-- 유저 사진 -->
                                     <img
-                                        src="../assets/images/duksung_symbol.png"
+                                        src="{%static
+                                    '/single_pages/index/images/duksung_symbol.png'%}"
                                         alt="user"
                                         class="rounded-circle"
                                         width="31"
@@ -1024,20 +1025,24 @@
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="{% static 'single_pages/index/libs/jquery/dist/jquery.min.js' %}"></script>
+
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../dist/js/app-style-switcher.js"></script>
+        <script src="{% static 'single_pages/index/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+        <script src="{% static 'single_pages/index/js/app-style-switcher.js' %}"></script>
         <!--Wave Effects -->
-        <script src="../dist/js/waves.js"></script>
+        <script src="{% static 'single_pages/index/js/waves.js' %}"></script>
+
         <!--Menu sidebar -->
-        <script src="../dist/js/sidebarmenu.js"></script>
+        <script src="{% static 'single_pages/index/js/sidebarmenu.js' %}"></script>
+
         <!--Custom JavaScript -->
-        <script src="../dist/js/custom.js"></script>
+        <script src=" {% static 'single_pages/index/js/custom.js' %}"></script>
         <!--This page JavaScript -->
         <!--chartis chart-->
-        <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-        <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-        <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+        <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
+        <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
+        <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
     </body>
 </html>
