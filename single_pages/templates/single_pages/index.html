@@ -20,13 +20,7 @@
             rel="canonical"
             href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
         />
-        <!-- Favicon icon -->
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="{% static 'single_pages/index/images/duksung_symbol.png' %}"
-        />
+    
         <!-- Custom CSS -->
         <link
             href="{% static 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
@@ -98,7 +92,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="{% url 'single_pages:main' %}">
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -121,7 +115,7 @@
                         <!-- This is for the sidebar toggle which is visible on mobile only -->
                         <a
                             class="nav-toggler waves-effect waves-light d-block d-md-none"
-                            href="javascript:void(0)"
+                            href="{% url 'single_pages:main' %}"
                             ><i class="mdi mdi-menu"></i
                         ></a>
                     </div>
@@ -189,21 +183,9 @@
                                 >
                                     <a
                                         class="dropdown-item"
-                                        href="localhost:8000/MyPage/"
+                                        href="{% url 'single_pages:MyPage' %}"
                                         ><i class="ti-user m-r-5 m-l-5"></i> 내
                                         페이지</a
-                                    >
-                                    <a
-                                        class="dropdown-item"
-                                        href="localhost:8000/MyPage/"
-                                        ><i class="ti-wallet m-r-5 m-l-5"></i>
-                                        My Page
-                                    </a>
-                                    <a
-                                        class="dropdown-item"
-                                        href="javascript:void(0)"
-                                        ><i class="ti-email m-r-5 m-l-5"></i>
-                                        Inbox</a
                                     >
                                 </ul>
                             </li>
@@ -230,7 +212,7 @@
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="index.html"
+                                    href="{% url 'single_pages:main' %}"
                                     aria-expanded="false"
                                     ><i class="mdi mdi-view-dashboard"></i
                                     ><span class="hide-menu"
@@ -261,7 +243,7 @@
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="icon-material.html"
+                                    href="{% url 'single_pages:MyPage' %}"
                                     aria-expanded="false"
                                     ><i class="mdi mdi-face"></i
                                     ><span class="hide-menu">내 페이지</span></a
@@ -311,7 +293,7 @@
                                     class="breadcrumb mb-0 d-flex align-items-center"
                                 >
                                     <li class="breadcrumb-item">
-                                        <a href="index.html" class="link"
+                                        <a href="{% url 'single_pages:main' %}" class="link"
                                             ><i
                                                 class="mdi mdi-home-outline fs-4"
                                             ></i
@@ -321,11 +303,11 @@
                                         class="breadcrumb-item active"
                                         aria-current="page"
                                     >
-                                        Dashboard
+                                        메인 페이지
                                     </li>
                                 </ol>
                             </nav>
-                            <h1 class="mb-0 fw-bold">Dashboard</h1>
+                            <h1 class="mb-0 fw-bold">메인 페이지</h1>
                         </div>
                     </div>
                 </div>
