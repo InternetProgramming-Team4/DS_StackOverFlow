@@ -20,7 +20,7 @@
             rel="canonical"
             href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
         />
-        <!-- Favicon icon -->
+        Favicon icon
 
         <link
             rel="icon"
@@ -29,7 +29,7 @@
             href="{% static 'single_pages/index/images/favicon.png' %}"
         />
 
-        <!-- Custom CSS -->
+        Custom CSS
         <link
             href=" {% static
                 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
@@ -42,6 +42,7 @@
         %}"
             rel="stylesheet"
         />
+
 
         <!-- Custom CSS -->
         <link
@@ -77,13 +78,13 @@
     <body>
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
+        <!-- ==============================================================
         <div class="preloader">
             <div class="lds-ripple">
                 <div class="lds-pos"></div>
                 <div class="lds-pos"></div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -117,10 +118,11 @@
                                 />
                             </b>
                             <!-- Logo text -->
-                            <span class="logo-text">
+
+                                <span class="logo-text">
                                 <!-- Light Logo text -->
-                                DUKSUNG
-                            </span>
+                                    DUKSUNG
+                                </span>
                         </a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
@@ -1009,7 +1011,10 @@
                 <!-- ============================================================== -->
                 <footer class="footer text-center">
                     All Rights Reserved by Flexy Admin. Designed and Developed
-                    by <a href="https://www.wrappixel.com">WrapPixel</a>.
+                    by
+                    {% if not user.is_authenticated %}  <!--로그인 상태인지 확인 위해 추가함 나중에 수정-->
+                        <a href="https://www.wrappixel.com">WrapPixel</a>.
+                    {% endif %}
                 </footer>
                 <!-- ============================================================== -->
                 <!-- End footer -->
@@ -1024,10 +1029,10 @@
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- All Jquery -->
-        <!-- ============================================================== -->
+        <!-- ==============================================================-->
         <script src="{% static 'single_pages/index/libs/jquery/dist/jquery.min.js' %}"></script>
 
-        <!-- Bootstrap tether Core JavaScript -->
+        <!-- Bootstrap tether Core JavaScript-->
         <script src="{% static 'single_pages/index/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
 
         <script src="{% static 'single_pages/index/js/app-style-switcher.js' %}"></script>

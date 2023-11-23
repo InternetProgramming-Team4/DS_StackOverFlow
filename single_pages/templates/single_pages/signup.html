@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <title>Sign Up 01</title>
@@ -63,12 +63,12 @@
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-6 col-xl-5">
                         <div class="login-wrap p-4 p-md-5">
-                            <div class="login-center">
-                                <img
-                                    src="{% static 'single_pages/images/duksung_symbol.png' %}"
-                                    alt="Duksung Symbol"
-                                    style="width: 100px; height: auto"
+                            <div class="login-center" >
+                                <img src="{% static 'single_pages/images/duksung_symbol.png' %}"
+                                     alt="Duksung Symbol"
+                                     style="width: 100px; height: auto"
                                 />
+
                             </div>
                             <h3
                                 class="text-center mb-4"
@@ -76,16 +76,24 @@
                             >
                                 Create Your Account
                             </h3>
-                            <form action="#" class="signup-form">
+                            <form action="{% url 'single_pages:signup' %}" method="POST" class="signup-form">
+                                {% csrf_token %}
                                 <div class="form-group">
-                                    <label class="label" for="name"
+                                    <label class="label"
                                         >Full Name</label
                                     >
                                     <input
                                         type="text"
                                         class="form-control"
+                                        name="username"
                                         placeholder="Duksung"
+                                        id="username"
+                                        value="{{ form.username.value|default_if_none:'' }}"
+                                        required
                                     />
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
                                 </div>
                                 <div class="form-group">
                                     <label class="label" for="email"
@@ -94,23 +102,34 @@
                                     <input
                                         type="text"
                                         class="form-control"
+                                        name="email"
                                         placeholder="duksung@duksung.ac.kr"
+                                        id="email"
+                                        value="{{ form.email.value|default_if_none:'' }}"
+                                        required
                                     />
+
                                 </div>
                                 <div class="form-group">
-                                    <label class="label" for="password"
+                                    <label class="label"
                                         >Password</label
                                     >
                                     <input
                                         id="password-field"
                                         type="password"
                                         class="form-control"
+                                        name="password"
                                         placeholder="Password"
+                                        value="{{ form.password.value|default_if_none:'' }}"
+                                        required
                                     />
                                     <span
                                         toggle="#password-field"
                                         class="fa fa-fw fa-eye field-icon toggle-password"
                                     ></span>
+                                    {% for error in form.password.errors %}
+                                        <span class="error-message">{{ error }}</span>
+                                    {% endfor %}
                                 </div>
                                 <div class="form-group d-md-flex">
                                     <div class="w-100 text-left">
@@ -129,6 +148,7 @@
                                 >
                                     Sign Up
                                 </button>
+
                             </form>
                         </div>
                     </div>
@@ -136,9 +156,9 @@
             </div>
         </section>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="{% static 'single_pages/signup/js/jquery.min.js' %}"></script>
+        <script src="{% static 'single_pages/signup/js/popper.js' %}"></script>
+        <script src="{% static 'single_pages/signup/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'single_pages/signup/js/main.js' %}"></script>
     </body>
 </html>
