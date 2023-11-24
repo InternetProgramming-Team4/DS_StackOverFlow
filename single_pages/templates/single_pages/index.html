@@ -58,7 +58,15 @@
                 justify-content: center; /* 수평 중앙 정렬 */
                 align-items: center; /* 수직 중앙 정렬 */
             }
+            /* 메인 타이틀 스타일 */
+            .main-title {
+                font-size: 160px; /* 타이틀의 크기를 크게 조정합니다 */
+                font-weight: bold;
+              
+                color: #333; /* 타이틀의 색상을 설정합니다 */
+            }
         </style>
+        
     </head>
 
     <body>
@@ -208,14 +216,15 @@
                 <div class="scroll-sidebar">
                     <!-- Sidebar navigation-->
                     <nav class="sidebar-nav">
-                        <ul id="sidebarnav">
+                        <ul id="sidebarnav" >
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
                                     href="{% url 'single_pages:main' %}"
                                     aria-expanded="false"
+                                    style="background-color:rgb(183, 0, 80)"
                                     ><i class="mdi mdi-view-dashboard"></i
-                                    ><span class="hide-menu"
+                                    ><span class="hide-menu" 
                                         >메인 페이지</span
                                     ></a
                                 >
@@ -249,27 +258,6 @@
                                     ><span class="hide-menu">내 페이지</span></a
                                 >
                             </li>
-                            {% comment %}
-                            <li class="sidebar-item">
-                                <a
-                                    class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="starter-kit.html"
-                                    aria-expanded="false"
-                                    ><i class="mdi mdi-file"></i
-                                    ><span class="hide-menu">Blank</span></a
-                                >
-                            </li>
-                            <li class="sidebar-item">
-                                <a
-                                    class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="error-404.html"
-                                    aria-expanded="false"
-                                    ><i class="mdi mdi-alert-outline"></i
-                                    ><span class="hide-menu">404</span></a
-                                >
-                            </li>
-                        </ul>
-                        {% endcomment %}
                     </nav>
                     <!-- End Sidebar navigation -->
                 </div>
@@ -311,6 +299,90 @@
                         </div>
                     </div>
                 </div>
+           
+                 <!-- Container (고정 너비) -->
+                <div class="container">
+                <!-- 메인 페이지 타이틀 (카드 형식 제거) -->
+                    <div class="row">
+                          <div class="col-md-12">
+                              <!-- 크게 강조된 타이틀 -->
+                               <h2 class="main-title" style="color:rgb(183,0,80)">DUKSUNG</h2>
+                               <h2 class="main-title" style="font-size:120px"> STACKOVERFLOW</h2>
+                               <br>
+                               <br>
+                               <br>
+                               
+                            </div>
+                    </div>
+                </div>
+                <!-- 웹사이트 소개 섹션 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">웹사이트 소개</h3>
+                                <p>DS-StackOverFlow는 
+                                    <br>
+                                    학생들이 강의에 대한 질문을 하고,
+                                    <br>
+                                    답변을 받을 수 있는 플랫폼입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 개발자 카드 섹션 -->
+<div class="container-fluid">
+    <div class="row">
+        <h3> &nbsp; 개발자 소개</h3>
+        <!-- 개발자 1 카드 -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 1">
+                <div class="card-body">
+                    <h5 class="card-title">개발자 김지우</h5>
+                    <p class="card-text">개발자 1에 대한 간단한 설명...</p>
+                </div>
+            </div>
+        </div>
+        <!-- 개발자 2 카드 -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 2">
+                <div class="card-body">
+                    <h5 class="card-title">개발자 권나래</h5>
+                    <p class="card-text">개발자 2에 대한 간단한 설명...</p>
+                </div>
+            </div>
+        </div>
+        <!-- 개발자 3 카드 -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 3">
+                <div class="card-body">
+                    <h5 class="card-title">개발자 김미주</h5>
+                    <p class="card-text">개발자 3에 대한 간단한 설명...</p>
+                </div>
+            </div>
+        </div>
+        <!-- 개발자 4 카드 -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 4">
+                <div class="card-body">
+                    <h5 class="card-title">개발자 박승희</h5>
+                    <p class="card-text">개발자 4에 대한 간단한 설명...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            <!-- Container Fluid 끝 -->
+        </div>
+        <!-- Page Wrapper 끝 -->
+    </div>
+    <!-- Main Wrapper 끝 -->
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
