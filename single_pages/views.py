@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
+from django.contrib import auth
 from django.contrib.auth import get_user_model
 # 사용자가 있는지 검사하는 함수
 
@@ -73,3 +74,7 @@ def login_view(request):
 
     else:
         return render(request, 'single_pages/login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('../')
