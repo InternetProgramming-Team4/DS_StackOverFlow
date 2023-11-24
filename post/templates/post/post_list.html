@@ -46,7 +46,7 @@
                         <br/><br/>
                         {% endif %}
 
-                        <a href="/post/{{ p.id }}" class="btn btn-primary">Read More &rarr;</a>
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on {{ p.create_at }}

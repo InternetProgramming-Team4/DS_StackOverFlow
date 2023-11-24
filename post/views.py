@@ -20,13 +20,18 @@ class PostList(ListView):
 
 def major_page(request, slug):
     major = Major.objects.get(slug=slug)
+    post_list = Post.objects.filter(major=major).order_by('-pk')
 
     return render (
         request,
         'post/post_list.html',
         {
-            'post_list' : Post.objects.filter(major=major),
+            'post_list' : post_list,
             'majors' : Major.objects.all(),
             'major' : major,
         }
     )
+
+
+class PostDetail(DetailView):
+    model = Post
