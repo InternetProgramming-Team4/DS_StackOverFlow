@@ -84,3 +84,10 @@ class PostDetail(DetailView):
 
         # 리다이렉트
         return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+
+def nomajorlist(request):
+    return render(
+        request,
+        'post/Qlist.html'
+    )
+
