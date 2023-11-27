@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Post, Major
+from .models import Post, Major, Vote
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -35,3 +38,49 @@ def major_page(request, slug):
 
 class PostDetail(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data()
+        user = self.request.user
+        post = self.object
+        content_type = ContentType.objects.get_for_model(Post)
+        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+
+        context['vote'] = vote
+        return context
+
+    def upvote_post(self, pk):
+        post = get_object_or_404(Post, pk=pk)
+        user = self.request.user
+        content_type = ContentType.objects.get_for_model(Post)
+
+        # 사용자의 투표 정보 가져오기
+        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+
+        if vote:
+            # 이미 투표한 경우, 투표 취소
+            vote.delete()
+        else:
+            # 투표하지 않은 경우, Upvote
+            Vote.objects.create(content_type=content_type, voted_object=post, score=Vote.UPVOTE, voter=user)
+
+        # 리다이렉트
+        return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+
+    def downvote_post(self, pk):
+        post = get_object_or_404(Post, pk=pk)
+        user = self.request.user
+        content_type = ContentType.objects.get_for_model(Post)
+
+        # 사용자의 투표 정보 가져오기
+        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+
+        if vote:
+            # 이미 투표한 경우, 투표 취소
+            vote.delete()
+        else:
+            # 투표하지 않은 경우, Downvote
+            Vote.objects.create(content_type=content_type, voted_object=post, score=Vote.DOWNVOTE, voter=user)
+
+        # 리다이렉트
+        return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))

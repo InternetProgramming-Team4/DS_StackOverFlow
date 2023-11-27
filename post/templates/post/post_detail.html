@@ -57,6 +57,22 @@
                     Download
                 </a>
             {% endif %}
+
+            {% if user.is_authenticated %}
+    {% if vote %}
+      {% if vote.score == 1 %}
+        <p>You upvoted this post!</p>
+      {% elif vote.score == -1 %}
+        <p>You downvoted this post!</p>
+      {% endif %}
+    {% else %}
+      <a href="{% url 'upvote_post' pk=object.pk %}">Upvote</a>
+      <a href="{% url 'downvote_post' pk=object.pk %}">Downvote</a>
+    {% endif %}
+  {% else %}
+    <p>Login to vote</p>
+  {% endif %}
+
             <hr>
 
         </section>
