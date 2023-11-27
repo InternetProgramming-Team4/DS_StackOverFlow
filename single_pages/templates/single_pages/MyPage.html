@@ -1,45 +1,514 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="ko">
+{%load static %}
+<html dir="ltr" lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>웹페이지 예시</title>
-        <link
-            rel="stylesheet"
-            href="{% static 'single_pages/index/style.css' %}"
-            media="screen"
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="keywords"
+            content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Flexy lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Flexy admin lite design, Flexy admin lite dashboard bootstrap 5 dashboard template"
         />
+        <meta
+            name="description"
+            content="Flexy Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework"
+        />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Duksung StackOverFlow</title>
+        <link
+            rel="canonical"
+            href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
+        />
+
+        <!-- Custom CSS -->
+        <link
+            href="{% static 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
+            rel="stylesheet"
+        />
+        <link
+            href="{% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css' %}"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS -->
+        <link
+            href="{% static 'single_pages/index/css/style.min.css' %}"
+            rel="stylesheet"
+        />
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <style>
+            .logo-icon img,
+            .logo-text {
+                /* 이미지와 텍스트 사이의 여백을 없애기 위해 margin과 padding 값을 조정합니다 */
+                margin: 0;
+                padding: 0;
+            }
+
+            /* 로고 이미지와 텍스트를 가운데 정렬하기 위한 스타일 */
+            .navbar-brand {
+                /* Flex 컨테이너 설정 */
+                display: flex;
+                flex-direction: row; /* 요소들을 가로로 나열 */
+                justify-content: center; /* 수평 중앙 정렬 */
+                align-items: center; /* 수직 중앙 정렬 */
+            }
+            /* 메인 타이틀 스타일 */
+            .main-title {
+                font-size: 160px; /* 타이틀의 크기를 크게 조정합니다 */
+                font-weight: bold;
+
+                color: #333; /* 타이틀의 색상을 설정합니다 */
+            }
+        </style>
+
     </head>
+
     <body>
-        <header id="header">
-            <!-- 헤더 -->
-            <img
-                src="{% static 'single_pages/index/image/duksung_symbol.png' %}"
-                alt="로고"
-            />
-            <span>DS StackOverFlow</span>
-        </header>
-        <div id="content-area">
-            <nav id="navbar">
-                <!-- 네비게이션 바 -->
-                <a href="/" class="nav-link">Home</a>
-                <a href="#" class="nav-link">질문 탭</a>
-                <a href="/MyPage/" class="nav-link">My Page</a>
-            </nav>
-            <main id="main-content">
-                <!-- 메인 컨텐츠 -->
-                <h1>My Page</h1>
-                <p>여기에 메인 컨텐츠의 본문이 들어갑니다.</p>
-            </main>
-            <aside id="sidebar">
-                <!-- 사이드바 -->
-                <a href="#" class="sidebar-link">사이드바 링크 1</a>
-                <a href="#" class="sidebar-link">사이드바 링크 2</a>
-            </aside>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
         </div>
-        <footer id="footer">
-            <!-- 푸터 -->
-        </footer>
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div
+            id="main-wrapper"
+            data-layout="vertical"
+            data-navbarbg="skin5"
+            data-sidebartype="full"
+            data-sidebar-position="absolute"
+            data-header-position="absolute"
+            data-boxed-layout="full"
+        >
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar" data-navbarbg="skin6">
+                <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                    <div class="navbar-header" data-logobg="skin6">
+                        <!-- ============================================================== -->
+                        <!-- Logo -->
+                        <!-- ============================================================== -->
+                        <a class="navbar-brand" href="{% url 'single_pages:main' %}">
+                            <!-- Logo icon -->
+                            <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Light Logo icon -->
+                                <img
+                                    src="{% static 'single_pages/index/images/duksung_symbol.png' %}"
+                                    alt="Duksung Symbol"
+                                    style="width: 60px; height: auto"
+                                />
+                            </b>
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- Light Logo text -->
+                                DUKSUNG
+                            </span>
+                        </a>
+                        <!-- ============================================================== -->
+                        <!-- End Logo -->
+                        <!-- ============================================================== -->
+                        <!-- This is for the sidebar toggle which is visible on mobile only -->
+                        <a
+                            class="nav-toggler waves-effect waves-light d-block d-md-none"
+                            href="{% url 'single_pages:main' %}"
+                            ><i class="mdi mdi-menu"></i
+                        ></a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div
+                        class="navbar-collapse collapse"
+                        id="navbarSupportedContent"
+                        data-navbarbg="skin5"
+                    >
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav float-start me-auto">
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item search-box">
+                                <a
+                                    class="nav-link waves-effect waves-dark"
+                                    href="javascript:void(0)"
+                                    ><i class="mdi mdi-magnify me-1"></i>
+                                    <span class="font-16">Search</span></a
+                                >
+
+                                <form class="app-search position-absolute">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Search &amp; enter"
+                                    />
+                                    <a class="srh-btn"
+                                        ><i class="mdi mdi-window-close"></i
+                                    ></a>
+                                </form>
+                            </li>
+
+                        </ul>
+                        <!-- 로그인 되어 있을 시 보이지 않음 -->
+                        {% if not user.is_authenticated %}
+                         <!-- 회원가입 링크 -->
+                            <a href="{% url 'single_pages:signup' %}" class="font-16" style="margin-right:10px; color : grey" >Register</a>
+
+                         <!-- 로그인 링크 -->
+                            <a href="{% url 'single_pages:login' %}" class="font-16" style="color : grey">Login</a>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                            <a class="font-16" style="margin-right:20px; color : grey">
+                                {{ user }}님, 안녕하세요!</a>
+
+                            <a href="{% url 'single_pages:logout' %}" class="font-16" style="margin-right:5px;">Logout</a>
+                        {% endif %}
+
+                        <ul class="navbar-nav float-end">
+
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+
+
+                            <li class="nav-item dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+
+                                    <!-- 유저 사진 -->
+                                    <img
+                                        src="{%static 'single_pages/index/images/duksung_symbol.png'%}"
+                                        alt="user"
+                                        class="rounded-circle"
+                                        width="31"
+                                    />
+
+
+                                </a>
+                                <ul
+                                    class="dropdown-menu dropdown-menu-end user-dd animated"
+                                    aria-labelledby="navbarDropdown"
+                                >
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'single_pages:MyPage' %}"
+                                        ><i class="ti-user m-r-5 m-l-5"></i> 내
+                                        페이지</a
+                                    >
+                                </ul>
+                            </li>
+
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav" >
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{% url 'single_pages:main' %}"
+                                    aria-expanded="false"
+                                    style="background-color:rgb(183, 0, 80)"
+                                    ><i class="mdi mdi-view-dashboard"></i
+                                    ><span class="hide-menu"
+                                        >메인 페이지</span
+                                    ></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="table-basic.html"
+                                    aria-expanded="false"
+                                    ><i class="mdi mdi-border-all"></i
+                                    ><span class="hide-menu"
+                                        >질문 리스트</span
+                                    ></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="pages-profile.html"
+                                    aria-expanded="false"
+                                    ><i class="mdi mdi-account-network"></i
+                                    ><span class="hide-menu">질문 등록</span></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{% url 'single_pages:MyPage' %}"
+                                    aria-expanded="false"
+                                    ><i class="mdi mdi-face"></i
+                                    ><span class="hide-menu">내 페이지</span></a
+                                >
+                            </li>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">내 페이지</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">내 페이지</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <center class="m-t-30">
+                                    <img
+                                    src="{%static 'single_pages/images/duksung_symbol.png'%}"
+                                    alt="Duksung Symbol"
+                                    class="rounded-circle" width="150"/>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i
+                                                    class="icon-picture"></i>
+                                            </a></div>
+                                </center>
+                                    </div>
+                            </div>
+                            <div>
+                                <hr>
+                            </div>
+                            <div class="card-body"> <small class="text-muted">이름 </small>
+                                <h6>김미주</h6> <small class="text-muted p-t-30 db">학과</small>
+                                <h6>경영학전공</h6> <small class="text-muted p-t-30 db">이메일</small>
+                                <h6>jujukim00@duksung.ac.kr</h6>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="form-horizontal form-material mx-2">
+                                    <div class="form-group">
+                                        <label class="col-md-12">이름</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="김미주"
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12">이메일</label>
+                                        <div class="col-md-12">
+                                            <input type="email" placeholder="jujukim00@duksung.ac.kr"
+                                                class="form-control form-control-line" name="example-email"
+                                                id="example-email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password" value="password"
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-success text-white">프로필 업데이트</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-19">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Recent Questions</h4>
+                            </div>
+                            <div class="comment-widgets scrollable">
+                                <!-- Comment Row -->
+                                {%for p in post_list %}
+                               <div class="d-flex flex-row comment-row">
+                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
+                                            class="rounded-circle"></div>-->
+                                    <div class="comment-text active w-100">
+                                        <h5 class="font-medium">{{p.title}}</h5>
+                                        <span class="m-b-15 d-block">컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요?</span>
+                                        <div class="comment-footer ">
+                                            <span class="text-muted float-end">November 26 2023</span>
+<!--                                            <span class="action-icons active">-->
+<!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
+<!--&lt;!&ndash;-->
+<!--                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>-->
+<!--&ndash;&gt;-->
+<!--                                            </span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <!-- Comment Row -->
+                               <div class="d-flex flex-row comment-row">
+                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
+                                            class="rounded-circle"></div>-->
+                                    <div class="comment-text active w-100">
+                                        <h5 class="font-medium">오늘은 내 생일</h5>
+                                        <span class="m-b-15 d-block">~~~~~~~~~</span>
+                                        <div class="comment-footer ">
+                                            <span class="text-muted float-end">November 25 2023</span>
+
+<!--                                            <span class="action-icons active">-->
+<!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
+<!--&lt;!&ndash;                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>&ndash;&gt;-->
+<!--                                            </span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Comment Row -->
+                               <div class="d-flex flex-row comment-row">
+                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
+                                            class="rounded-circle"></div>-->
+                                    <div class="comment-text active w-100">
+                                        <h5 class="font-medium">제목</h5>
+                                        <span class="m-b-15 d-block">내용</span>
+                                        <div class="comment-footer ">
+                                            <span class="text-muted float-end">{{p.created_at}}</span>
+
+                                           <!--<span class="action-icons active">
+                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>
+                                            </span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column -->
+                </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="{% static 'single_pages/index/libs/jquery/dist/jquery.min.js' %}"></script>
+
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="{% static 'single_pages/index/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+        <script src="{% static 'single_pages/index/js/app-style-switcher.js' %}"></script>
+        <!--Wave Effects -->
+        <script src="{% static 'single_pages/index/js/waves.js' %}"></script>
+
+        <!--Menu sidebar -->
+        <script src="{% static 'single_pages/index/js/sidebarmenu.js' %}"></script>
+
+        <!--Custom JavaScript -->
+        <script src=" {% static 'single_pages/index/js/custom.js' %}"></script>
+        <!--This page JavaScript -->
+        <!--chartis chart-->
+        <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
+        <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
+        <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
+
+           <!-- <script>
+    // JavaScript로 아이콘 토글 구현
+    function toggleHeart(element) {
+        var icon = element.querySelector("i");
+        // "text-danger" 클래스를 토글하여 적용/해제
+        icon.classList.toggle("text-danger");
+    }
+</script>-->
     </body>
 </html>
