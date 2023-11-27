@@ -35,3 +35,9 @@ def major_page(request, slug):
 
 class PostDetail(DetailView):
     model = Post
+
+def nomajorlist(request):
+    return render(
+        request,
+        'post/Qlist.html'
+    )

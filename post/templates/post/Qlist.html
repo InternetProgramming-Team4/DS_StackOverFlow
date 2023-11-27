@@ -1,5 +1,5 @@
-{%load static %}
 <!DOCTYPE html>
+{%load static %}
 <html dir="ltr" lang="en">
     <head>
         <meta charset="utf-8" />
@@ -35,6 +35,8 @@
             href="{% static 'single_pages/index/css/style.min.css' %}"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -294,129 +296,142 @@
             <!-- Page wrapper  -->
             <!-- ============================================================== -->
             <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="page-breadcrumb">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <nav aria-label="breadcrumb">
-                                <ol
-                                    class="breadcrumb mb-0 d-flex align-items-center"
-                                >
-                                    <li class="breadcrumb-item">
-                                        <a href="{% url 'single_pages:main' %}" class="link"
-                                            ><i
-                                                class="mdi mdi-home-outline fs-4"
-                                            ></i
-                                        ></a>
-                                    </li>
-                                    <li
-                                        class="breadcrumb-item active"
-                                        aria-current="page"
-                                    >
-                                        메인 페이지
-                                    </li>
-                                </ol>
-                            </nav>
-                            <h1 class="mb-0 fw-bold">메인 페이지</h1>
-                        </div>
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">질문 리스트</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">질문 리스트</h1>
                     </div>
                 </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
 
-                 <!-- Container (고정 너비) -->
-                <div class="container">
-                <!-- 메인 페이지 타이틀 (카드 형식 제거) -->
                     <div class="row">
-                          <div class="col-md-12">
-                              <!-- 크게 강조된 타이틀 -->
-                               <h2 class="main-title" style="color:rgb(183,0,80)">DUKSUNG</h2>
-                               <h2 class="main-title" style="font-size:120px"> STACKOVERFLOW</h2>
-                               <br>
-                               <br>
-                               <br>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-md-flex align-items-center">
+                                        <div>
+                                            <h4 class="card-title">
+                                                Major
+                                            </h4>
+                                            <h6 class="card-subtitle">
+                                                전공을 선택해 주세요.
+                                            </h6>
+                                        </div>
+                                    </div>
 
+                                </div>
                             </div>
-                    </div>
-                </div>
-                <!-- 웹사이트 소개 섹션 -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">웹사이트 소개</h3>
-                                <p>DS-StackOverFlow는
-                                    <br>
-                                    학생들이 강의에 대한 질문을 하고,
-                                    <br>
-                                    답변을 받을 수 있는 플랫폼입니다.</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">전공 선택</h4>
+                                    <div
+                                        class="mt-5 pb-3 d-flex align-items-center"
+                                    >
+                                        <a href="./컴퓨터공학전공/">
+                                            <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/laptop.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        </a>
+                                        <div class="ms-3">
+                                            <a href="./컴퓨터공학전공/">
+                                            <h5 class="mb-0 fw-bold">
+                                                컴퓨터공학전공
+                                            </h5>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/economy2.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                경영학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/math.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                수학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/art.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                미술사학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/chemical.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                화학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 개발자 카드 섹션 -->
-<div class="container-fluid">
-    <div class="row">
-        <h3> &nbsp; 개발자 소개</h3>
-        <!-- 개발자 1 카드 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{%static 'single_pages/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 1">
-                <div class="card-body">
-                    <h5 class="card-title">개발자 김지우</h5>
-                    <p class="card-text">개발자 1에 대한 간단한 설명...</p>
+                    <!-- Column -->
                 </div>
-            </div>
-        </div>
-        <!-- 개발자 2 카드 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 2">
-                <div class="card-body">
-                    <h5 class="card-title">개발자 권나래</h5>
-                    <p class="card-text">개발자 2에 대한 간단한 설명...</p>
-                </div>
-            </div>
-        </div>
-        <!-- 개발자 3 카드 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 3">
-                <div class="card-body">
-                    <h5 class="card-title">개발자 김미주</h5>
-                    <p class="card-text">개발자 3에 대한 간단한 설명...</p>
-                </div>
-            </div>
-        </div>
-        <!-- 개발자 4 카드 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 4">
-                <div class="card-body">
-                    <h5 class="card-title">개발자 박승희</h5>
-                    <p class="card-text">개발자 4에 대한 간단한 설명...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-            <!-- Container Fluid 끝 -->
-        </div>
-        <!-- Page Wrapper 끝 -->
-    </div>
-    <!-- Main Wrapper 끝 -->
+                <!-- Row -->
                 <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
-                <!-- Container fluid  -->
+                <!-- Right sidebar -->
                 <!-- ============================================================== -->
-                <div class="container-fluid">
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
 
             <!-- ============================================================== -->
-            <!-- End Page wrapper  -->
+            <!-- End footer -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
@@ -444,5 +459,14 @@
         <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
         <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
         <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
+
+           <!-- <script>
+    // JavaScript로 아이콘 토글 구현
+    function toggleHeart(element) {
+        var icon = element.querySelector("i");
+        // "text-danger" 클래스를 토글하여 적용/해제
+        icon.classList.toggle("text-danger");
+    }
+</script>-->
     </body>
 </html>
