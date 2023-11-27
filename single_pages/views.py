@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.contrib import auth
 from django.contrib.auth import get_user_model
+from post.models import Post
 # 사용자가 있는지 검사하는 함수
 
 
@@ -18,6 +19,8 @@ def main(request):
     )
 
 def user(request):
+    post_list = Post.objects.all().order_by('-pk')
+
     return render(
         request,
         'single_pages/MyPage.html'
