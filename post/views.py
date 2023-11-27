@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import Post, Major, Vote
 from django.contrib.contenttypes.models import ContentType
@@ -44,13 +45,16 @@ class PostDetail(DetailView):
         user = self.request.user
         post = self.object
         content_type = ContentType.objects.get_for_model(Post)
-        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id).count()
 
         context['vote'] = vote
         return context
 
-    def upvote_post(self, pk):
-        post = get_object_or_404(Post, pk=pk)
+
+
+class UpvotePostView(View):
+    def post(self, request, slug, pk):
+        post = get_object_or_404(Post, major__slug=slug, pk=pk)
         user = self.request.user
         content_type = ContentType.objects.get_for_model(Post)
 
@@ -65,10 +69,11 @@ class PostDetail(DetailView):
             Vote.objects.create(content_type=content_type, voted_object=post, score=Vote.UPVOTE, voter=user)
 
         # 리다이렉트
-        return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+        return HttpResponseRedirect(reverse('post:post_detail', kwargs={'slug': slug, 'pk': str(pk)}))
 
-    def downvote_post(self, pk):
-        post = get_object_or_404(Post, pk=pk)
+class DownvotePostView(View):
+    def post(self, request, slug, pk):
+        post = get_object_or_404(Post, major__slug=slug, pk=pk)
         user = self.request.user
         content_type = ContentType.objects.get_for_model(Post)
 
@@ -83,7 +88,8 @@ class PostDetail(DetailView):
             Vote.objects.create(content_type=content_type, voted_object=post, score=Vote.DOWNVOTE, voter=user)
 
         # 리다이렉트
-        return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+        return HttpResponseRedirect(reverse('post:post_detail', kwargs={'slug': slug, 'pk': str(pk)}))
+
 
 def nomajorlist(request):
     return render(

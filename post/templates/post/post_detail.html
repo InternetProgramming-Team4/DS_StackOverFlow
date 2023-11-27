@@ -59,19 +59,20 @@
             {% endif %}
 
             {% if user.is_authenticated %}
-    {% if vote %}
-      {% if vote.score == 1 %}
-        <p>You upvoted this post!</p>
-      {% elif vote.score == -1 %}
-        <p>You downvoted this post!</p>
-      {% endif %}
-    {% else %}
-      <a href="{% url 'upvote_post' pk=object.pk %}">Upvote</a>
-      <a href="{% url 'downvote_post' pk=object.pk %}">Downvote</a>
-    {% endif %}
-  {% else %}
-    <p>Login to vote</p>
-  {% endif %}
+            <form method="post" action="{% url 'post:upvote_post' slug=object.major.slug pk=object.pk %}">
+              {% csrf_token %}
+              <button type="submit" name="vote_type" value="1">Upvote</button>
+            </form>
+
+            <p>Vote Count: {{ vote }}</p>
+
+            <form method="post" action="{% url 'post:downvote_post' slug=object.major.slug pk=object.pk %}">
+              {% csrf_token %}
+              <button type="submit" name="vote_type" value="-1">Downvote</button>
+            </form>
+            {% else %}
+                <p>Login to vote</p>
+            {% endif %}
 
             <hr>
 
