@@ -1,7 +1,23 @@
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 # Create your models here.
+
+
+class Vote(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    voted_object_id = models.UUIDField(default=uuid.uuid4)
+    voted_object = GenericForeignKey('content_type', 'voted_object_id')
+
+    DOWNVOTE = -1
+    UPVOTE = 1
+    UNVOTE = 0
+    VOTE_TYPE_CHOICES = ((DOWNVOTE, "Downvote"), (UPVOTE, "Upvote"), (UNVOTE, "Unvote"))
+    score = models.IntegerField(choices=VOTE_TYPE_CHOICES, default=UNVOTE)
+    voter = models.ForeignKey(User, related_name='post_votes', on_delete=models.CASCADE)
 
 
 class Major(models.Model):
@@ -27,6 +43,7 @@ class Post(models.Model):
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     major = models.ForeignKey(Major, null=True, blank=False, on_delete=models.CASCADE)
+    votes = GenericRelation(Vote, null=True, related_query_name='post')
 
 
     def __str__(self):
@@ -34,3 +51,6 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f'/post/{self.major.slug}/{self.pk}/'
+
+
+
