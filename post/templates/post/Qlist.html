@@ -35,6 +35,8 @@
             href="{% static 'single_pages/index/css/style.min.css' %}"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -282,7 +284,6 @@
                                     ><span class="hide-menu">내 페이지</span></a
                                 >
                             </li>
-                        </ul>
                     </nav>
                     <!-- End Sidebar navigation -->
                 </div>
@@ -304,10 +305,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 d-flex align-items-center">
                               <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-                              <li class="breadcrumb-item active" aria-current="page">내 페이지</li>
+                              <li class="breadcrumb-item active" aria-current="page">질문 리스트</li>
                             </ol>
                           </nav>
-                        <h1 class="mb-0 fw-bold">내 페이지</h1>
+                        <h1 class="mb-0 fw-bold">질문 리스트</h1>
                     </div>
                 </div>
             </div>
@@ -322,111 +323,85 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-4 col-xlg-3 col-md-5">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Profile</h4>
-        </div>
-        <div class="card-body">
-            <center class="m-t-30">
-                <img src="{%static 'single_pages/images/duksung_symbol.png'%}" alt="Duksung Symbol" class="rounded-circle" width="150" style="margin-top: -100px;" />
-                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i></a></div>
-            </center>
-        </div>
-    </div>
-</div>
 
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-8 col-xlg-9 col-md-7">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
-                                    <div class="form-group">
-                                        <small class="text-muted">이름</small>
-                                            <h6>{{name}}</h6>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-md-flex align-items-center">
+                                        <div>
+                                            <h4 class="card-title">
+                                                Major
+                                            </h4>
+                                            <h6 class="card-subtitle">
+                                                전공을 선택해 주세요.
+                                            </h6>
                                         </div>
-
-                                    <div class="form-group">
-                                        <small class="text-muted p-t-30 db">학과</small>
-                                            <h6>{{major}}</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        <small class="text-muted p-t-30 db">이메일</small>
-                                            <h6>jujukim00@duksung.ac.kr</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        <small class="text-muted p-t-30 db">비밀번호</small>
-                                           <!-- <div class="col-md-12">
-                                            <input type="password" value="password"
-                                                class="form-control form-control-line">
-                                        </div>-->
-                                         <h6>{{password}}</h6>
                                     </div>
 
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-19">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Recent Questions</h4>
-                            </div>
-                            <div class="comment-widgets scrollable">
-                                <!-- Comment Row -->
-                                {%for p in post_list %}
-                               <div class="d-flex flex-row comment-row">
-                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                            class="rounded-circle"></div>-->
-                                    <div class="comment-text active w-100">
-                                        <h5 class="font-medium">{{p.title}}</h5>
-                                        <span class="m-b-15 d-block">컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요?</span>
-                                        <div class="comment-footer ">
-                                            <span class="text-muted float-end">November 26 2023</span>
-<!--                                            <span class="action-icons active">-->
-<!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
-<!--&lt;!&ndash;-->
-<!--                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>-->
-<!--&ndash;&gt;-->
-<!--                                            </span>-->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">전공 선택</h4>
+                                    <div
+                                        class="mt-5 pb-3 d-flex align-items-center"
+                                    >
+                                        <a href="./컴퓨터공학전공/">
+                                            <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/laptop.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        </a>
+                                        <div class="ms-3">
+                                            <a href="./컴퓨터공학전공/">
+                                            <h5 class="mb-0 fw-bold">
+                                                컴퓨터공학전공
+                                            </h5>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/economy2.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                경영학전공
+                                            </h5>
                                         </div>
                                     </div>
-                                </div>
-                                {% endfor %}
-                                <!-- Comment Row -->
-                               <div class="d-flex flex-row comment-row">
-                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                            class="rounded-circle"></div>-->
-                                    <div class="comment-text active w-100">
-                                        <h5 class="font-medium">오늘은 내 생일</h5>
-                                        <span class="m-b-15 d-block">~~~~~~~~~</span>
-                                        <div class="comment-footer ">
-                                            <span class="text-muted float-end">November 25 2023</span>
-
-<!--                                            <span class="action-icons active">-->
-<!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
-<!--&lt;!&ndash;                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>&ndash;&gt;-->
-<!--                                            </span>-->
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/math.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                수학전공
+                                            </h5>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Comment Row -->
-                               <div class="d-flex flex-row comment-row">
-                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                            class="rounded-circle"></div>-->
-                                    <div class="comment-text active w-100">
-                                        <h5 class="font-medium">제목</h5>
-                                        <span class="m-b-15 d-block">내용</span>
-                                        <div class="comment-footer ">
-                                            <span class="text-muted float-end">{{p.created_at}}</span>
+                                    <div class="py-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/art.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                미술사학전공
+                                            </h5>
+                                        </div>
+                                    </div>
 
-                                           <!--<span class="action-icons active">
-                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>
-                                            </span>-->
+                                    <div class="pt-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/chemical.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                화학전공
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -493,6 +468,5 @@
         icon.classList.toggle("text-danger");
     }
 </script>-->
-        </div>
     </body>
 </html>

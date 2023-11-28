@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name='post'
 urlpatterns = [
-    path('<str:slug>/', views.major_page),
+    path('', views.nomajorlist),
+    path('create_post/', views.PostCreate.as_view()),
+    path('<str:slug>/', views.major_page, name='Qlist'),
     path('<str:slug>/<int:pk>/', views.PostDetail.as_view()),
 ]

@@ -20,7 +20,7 @@
             rel="canonical"
             href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
         />
-    
+
         <!-- Custom CSS -->
         <link
             href="{% static 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
@@ -62,11 +62,11 @@
             .main-title {
                 font-size: 160px; /* 타이틀의 크기를 크게 조정합니다 */
                 font-weight: bold;
-              
+
                 color: #333; /* 타이틀의 색상을 설정합니다 */
             }
         </style>
-        
+
     </head>
 
     <body>
@@ -149,7 +149,7 @@
                                     ><i class="mdi mdi-magnify me-1"></i>
                                     <span class="font-16">Search</span></a
                                 >
-                              
+
                                 <form class="app-search position-absolute">
                                     <input
                                         type="text"
@@ -161,7 +161,7 @@
                                     ></a>
                                 </form>
                             </li>
-                            
+
                         </ul>
                         <!-- 로그인 되어 있을 시 보이지 않음 -->
                         {% if not user.is_authenticated %}
@@ -180,12 +180,12 @@
                         {% endif %}
 
                         <ul class="navbar-nav float-end">
-                           
+
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
-                            
-                            
+
+
                             <li class="nav-item dropdown">
                                 <a
                                     class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
@@ -204,7 +204,7 @@
                                         width="31"
                                     />
 
-                                
+
                                 </a>
                                 <ul
                                     class="dropdown-menu dropdown-menu-end user-dd animated"
@@ -245,16 +245,16 @@
                                     aria-expanded="false"
                                     style="background-color:rgb(183, 0, 80)"
                                     ><i class="mdi mdi-view-dashboard"></i
-                                    ><span class="hide-menu" 
+                                    ><span class="hide-menu"
                                         >메인 페이지</span
                                     ></a
                                 >
                             </li>
-                          
+
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="table-basic.html"
+                                    href="/post/"
                                     aria-expanded="false"
                                     ><i class="mdi mdi-border-all"></i
                                     ><span class="hide-menu"
@@ -272,7 +272,7 @@
                                     ><span class="hide-menu">질문 등록</span></a
                                 >
                             </li>
-                            
+
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                 </div>
-           
+
                  <!-- Container (고정 너비) -->
                 <div class="container">
                 <!-- 메인 페이지 타이틀 (카드 형식 제거) -->
@@ -335,7 +335,7 @@
                                <br>
                                <br>
                                <br>
-                               
+
                             </div>
                     </div>
                 </div>
@@ -345,7 +345,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">웹사이트 소개</h3>
-                                <p>DS-StackOverFlow는 
+                                <p>DS-StackOverFlow는
                                     <br>
                                     학생들이 강의에 대한 질문을 하고,
                                     <br>
@@ -362,7 +362,7 @@
         <!-- 개발자 1 카드 -->
         <div class="col-md-3">
             <div class="card">
-                <img src="{%static 'single_pages/index/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 1">
+                <img src="{%static 'single_pages/images/duksung_symbol.png'%}" class="card-img-top" alt="개발자 1">
                 <div class="card-body">
                     <h5 class="card-title">개발자 김지우</h5>
                     <p class="card-text">개발자 1에 대한 간단한 설명...</p>
@@ -414,7 +414,7 @@
                 <!-- Container fluid  -->
                 <!-- ============================================================== -->
                 <div class="container-fluid">
-                   
+
             <!-- ============================================================== -->
             <!-- End Page wrapper  -->
             <!-- ============================================================== -->
