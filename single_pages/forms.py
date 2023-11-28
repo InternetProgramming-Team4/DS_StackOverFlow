@@ -9,7 +9,10 @@ class SignUpForm(forms.Form):
         max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'duksung@duksung.ac.kr'}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
-
+    major = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'major'})
+    )
 
 # 위에 코드만 사용했더니 비밀번호가 한자리여도 통과되는 문제가 생김... 유효성 검사하는 함수 추가
 

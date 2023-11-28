@@ -7,6 +7,8 @@ from .forms import SignUpForm
 from django.contrib import auth
 from django.contrib.auth import get_user_model
 from post.models import Post
+from .models import Profile
+
 # 사용자가 있는지 검사하는 함수
 
 
@@ -40,6 +42,7 @@ def signup(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+            major = form.cleaned_data['major']
 
             exist_user = User.objects.filter(username=username)
             if exist_user:
@@ -48,6 +51,7 @@ def signup(request):
                 return render(request, 'single_pages/signup.html')  # 오류메세지 뜨게 할 뭔가 없나
 
             new_user = User.objects.create_user(username=username, email=email, password=password)
+            Profile.objects.create(user=new_user, major=major)
             # 새로운 사용자 User에 추가
 
             return redirect('../')
@@ -80,4 +84,5 @@ def login_view(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('../')
+    return redirect('/')
+
