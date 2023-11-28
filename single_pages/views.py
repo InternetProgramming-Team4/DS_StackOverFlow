@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -86,4 +87,12 @@ def login_view(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+# @login_required
+# def update(request):
+#     profile = request.user.profile #원래 정보 가져오기
+#
+
+
+
 
