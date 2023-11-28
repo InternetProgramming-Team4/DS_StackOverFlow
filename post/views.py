@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Post, Major, Vote
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 
@@ -107,4 +108,21 @@ def nomajorlist(request):
         request,
         'post/Qlist.html'
     )
+
+
+class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Post
+    template_name = 'post/register.html'
+    fields = ['title', 'content', 'head_image', 'file_upload', 'major']
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid(form)
+        else:
+            return redirect('/post/')
 
