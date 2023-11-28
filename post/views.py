@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.http import request
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Post, Major
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 
@@ -36,8 +38,29 @@ def major_page(request, slug):
 class PostDetail(DetailView):
     model = Post
 
+
 def nomajorlist(request):
     return render(
         request,
         'post/Qlist.html'
     )
+
+
+#@??
+class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Post
+    template_name = 'post/register.html'
+    fields = ['title', 'content', 'head_image', 'file_upload', 'major']
+
+
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid(form)
+
+
