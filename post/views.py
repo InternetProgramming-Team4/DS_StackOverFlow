@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
@@ -54,7 +55,6 @@ class PostDetail(DetailView):
         return context
 
 
-
 class UpvotePostView(View):
     def post(self, request, slug, pk):
         post = get_object_or_404(Post, major__slug=slug, pk=pk)
@@ -78,6 +78,7 @@ class UpvotePostView(View):
 
         # 리다이렉트
         return HttpResponseRedirect(reverse('post:post_detail', kwargs={'slug': slug, 'pk': str(pk)}))
+
 
 class DownvotePostView(View):
     def post(self, request, slug, pk):
@@ -110,19 +111,19 @@ def nomajorlist(request):
     )
 
 
+#@??
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     template_name = 'post/register.html'
     fields = ['title', 'content', 'head_image', 'file_upload', 'major']
 
+
     def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
+        return self.request.user.is_authenticated
+
 
     def form_valid(self, form):
         current_user = self.request.user
-        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
+        if current_user.is_authenticated:
             form.instance.author = current_user
             return super(PostCreate, self).form_valid(form)
-        else:
-            return redirect('/post/')
-
