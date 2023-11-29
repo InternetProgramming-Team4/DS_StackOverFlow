@@ -1,7 +1,7 @@
 from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Major, Vote
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
@@ -48,8 +48,8 @@ class PostDetail(DetailView):
         user = self.request.user
         post = self.object
         content_type = ContentType.objects.get_for_model(Post)
-        upvotes = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, score=Vote.UPVOTE).count()
-        downvotes = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, score=Vote.DOWNVOTE).count()
+        upvotes = Vote.objects.filter(content_type=content_type, object_id=post.id, score=Vote.UPVOTE).count()
+        downvotes = Vote.objects.filter(content_type=content_type, object_id=post.id, score=Vote.DOWNVOTE).count()
         vote = upvotes - downvotes
 
         context['vote'] = vote
@@ -63,7 +63,7 @@ class UpvotePostView(View):
         content_type = ContentType.objects.get_for_model(Post)
 
         # 사용자의 투표 정보 가져오기
-        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+        vote = Vote.objects.filter(content_type=content_type, object_id=post.id, voter=user).first()
 
         if vote and vote.score == Vote.DOWNVOTE:
             # 이미 Downvote를 한 경우에는 아무 동작도 하지 않음
@@ -88,7 +88,7 @@ class DownvotePostView(View):
         content_type = ContentType.objects.get_for_model(Post)
 
         # 사용자의 투표 정보 가져오기
-        vote = Vote.objects.filter(content_type=content_type, voted_object_id=post.id, voter=user).first()
+        vote = Vote.objects.filter(content_type=content_type, object_id=post.id, voter=user).first()
 
         if vote and vote.score == Vote.UPVOTE:
             # 이미 Downvote를 한 경우에는 아무 동작도 하지 않음
@@ -138,5 +138,19 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
             return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            return PermissionDenied
+
+
+class PostDelete(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = '/post/'
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostDelete, self).dispatch(request, *args, **kwargs)
         else:
             return PermissionDenied
