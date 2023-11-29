@@ -57,6 +57,23 @@
                     Download
                 </a>
             {% endif %}
+
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'post:upvote_post' slug=object.major.slug pk=object.pk %}">
+              {% csrf_token %}
+              <button type="submit" name="vote_type" value="1">Upvote</button>
+            </form>
+
+            <p>Vote Count: {{ vote }}</p>
+
+            <form method="post" action="{% url 'post:downvote_post' slug=object.major.slug pk=object.pk %}">
+              {% csrf_token %}
+              <button type="submit" name="vote_type" value="-1">Downvote</button>
+            </form>
+            {% else %}
+                <p>Login to vote</p>
+            {% endif %}
+
             <hr>
 
         </section>

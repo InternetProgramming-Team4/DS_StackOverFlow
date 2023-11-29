@@ -1,8 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignUpForm
 from django.contrib import auth
 from django.contrib.auth import get_user_model
@@ -85,4 +86,20 @@ def login_view(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+#로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
+@login_required
+def edit_major(request):
+    if request.method == 'POST':
+        selected_major = request.POST.get('major')
+        profile = Profile.objects.get(user=request.user)
+        profile.major = selected_major
+        profile.save()
+        return redirect('/MyPage/')  # 저장 후 프로필 페이지로 이동
+
+    else:
+        return redirect('/MyPage/')
+
+
 
