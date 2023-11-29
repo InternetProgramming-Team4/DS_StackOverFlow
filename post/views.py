@@ -1,12 +1,13 @@
 from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post, Major, Vote
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 
@@ -127,3 +128,15 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         if current_user.is_authenticated:
             form.instance.author = current_user
             return super(PostCreate, self).form_valid(form)
+
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content', 'head_image', 'file_upload', 'major']
+    template_name = 'post/post_update_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            return PermissionDenied

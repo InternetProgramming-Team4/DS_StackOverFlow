@@ -26,12 +26,12 @@
 
             <!-- Post update icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="/blog/update_post/{{ post.pk }}" role="button">Edit Post</a>
+                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button">Edit Post</a>
             {% endif %}
 
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="/blog/delete_post/{{ post.pk }}" role="button">DELETE Post</a>
+                <a class="btn btn-info btn-sm float-end" href="/post/delete_post/{{ post.pk }}" role="button">DELETE Post</a>
             {% endif %}
 
             <!-- Post major-->
