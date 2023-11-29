@@ -111,7 +111,7 @@ def nomajorlist(request):
     )
 
 
-#@??
+
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     template_name = 'post/register.html'

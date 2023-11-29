@@ -176,7 +176,7 @@
 
                         {% if user.is_authenticated %}
                             <a class="font-16" style="margin-right:20px; color : grey">
-                                {{ user }}님, 안녕하세요!</a>
+                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a>
 
                             <a href="{% url 'single_pages:logout' %}" class="font-16" style="margin-right:5px;">Logout</a>
                         {% endif %}
