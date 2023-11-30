@@ -2,7 +2,7 @@ from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Major, Vote
+from .models import Post, Major, Vote, Comment
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -145,16 +145,19 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
-    success_url = '/post/'
+    # success_url = '/post/{{ self.get_object().major.object.slug }}/'
 
     def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
+        return self.delete(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
             return super(PostDelete, self).dispatch(request, *args, **kwargs)
         else:
             return PermissionDenied
+
+    def get_success_url(self):
+        return reverse('post:Qlist', kwargs={'slug': self.object.major.slug})
 
 
 def new_comment(request, slug, pk):
@@ -173,3 +176,14 @@ def new_comment(request, slug, pk):
             return redirect(post.get_absolute_url())
     else:
         raise PermissionDenied
+
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            return PermissionDenied

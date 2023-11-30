@@ -1,0 +1,8 @@
+{% load crispy_forms_tags %}
+<form method="post" action="{% url 'post:update_comment' pk=comment.pk %}">
+    {% csrf_token %}
+    <table>
+        {{ form  | crispy }}
+    </table>
+    <button type="submit"> Submit </button>
+</form>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'post/bootstrap/bootstrap.min.css' %}" media="screen">
 
     <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -33,15 +34,15 @@
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
                 <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button">DELETE Post</a>
-            {% endif %}
 
-            <script>
-            document.getElementById('deleteBtn').addEventListener('click', function() {
-              if (confirm("질문을 삭제하시겠습니까?")) {
-                window.location.href = "{% url 'post:delete_post' pk=object.pk %}";
-              }
-            });
-          </script>
+                <script>
+                    document.getElementById('deleteBtn').addEventListener('click', function() {
+                      if (confirm("질문을 삭제하시겠습니까?")) {
+                        window.location.href = "{% url 'post:delete_post' pk=object.pk %}";
+                      }
+                    });
+                </script>
+            {% endif %}
 
             <!-- Post major-->
             {% if post.major %}
@@ -111,14 +112,47 @@
                     <div class="d-flex" id="comment={{comment.pk}}">
                         <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                         <div class="ms-3">
+
+                            {% if user.is_authenticated and comment.author == user %}
+                                <a role="button" class="btn btn-sm btn-info float-end" id="comment-{{comment.pk}}-update-btn" onclick="toggleEditForm({{ comment.pk }})">EDIT</a>
+                            {% endif %}
+
                             <div class="fw-bold">{{comment.author}} & {{ comment.created_at }}</div>
-                            {{ comment.content | linebreaks }}
+                            <div id="comment-content-{{ comment.pk }}">{{ comment.content | linebreaks }}</div>
+                            <!-- 수정 폼이 표시될 영역 -->
+                                <div id="comment-edit-form-{{ comment.pk }}" style="display: none;"></div>
                             {% if comment.created_at != comment.modified_at %}
                                 <p class="text-muted"><small> Updated : {{ comment.modified_at }}</small></p>
                             {% endif %}
                         </div>
                     </div>
+
                     {% endfor %}
+                    <script>
+                        function toggleEditForm(commentId) {
+                            // Toggle the visibility of the edit form
+                            $(`#comment-edit-form-${commentId}`).toggle();
+                            $(`#comment-content-${commentId}`).toggle();
+
+                            // Load the edit form content if it's not loaded yet
+                            if ($(`#comment-edit-form-${commentId}`).is(':visible') && !$(`#comment-edit-form-${commentId}`).html().trim()) {
+                                loadEditForm(commentId);
+                            }
+                        }
+
+                        function loadEditForm(commentId) {
+                            $.ajax({
+                                url: `/post/update_comment/${commentId}`,
+                                type: 'GET',
+                                success: function (response) {
+                                    $(`#comment-edit-form-${commentId}`).html(response);
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                    </script>
                 {% endif %}
 
             </div>
@@ -130,16 +164,15 @@
 </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+<!--        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+<!--        crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
