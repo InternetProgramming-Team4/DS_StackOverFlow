@@ -1,8 +1,5 @@
-
-
 <!DOCTYPE html>
-{% load static %}
-
+{%load static %}
 <html dir="ltr" lang="en">
     <head>
         <meta charset="utf-8" />
@@ -179,7 +176,7 @@
 
                         {% if user.is_authenticated %}
                             <a class="font-16" style="margin-right:20px; color : grey">
-                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a> 
+                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a>
 
                             <a href="{% url 'single_pages:logout' %}" class="font-16" style="margin-right:5px;">Logout</a>
                         {% endif %}
@@ -271,7 +268,7 @@
                             <li class="sidebar-item">
                                 <a
                                     class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="{% url 'post:create_post' %}"
+                                    href="pages-profile.html"
                                     aria-expanded="false"
                                     ><i class="mdi mdi-account-network"></i
                                     ><span class="hide-menu">질문 등록</span></a
@@ -308,10 +305,11 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 d-flex align-items-center">
                               <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-                              <li class="breadcrumb-item active" aria-current="page">질문 상세 페이지</li>
+                              <li class="breadcrumb-item active" aria-current="page">질문 리스트</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{major}}</li>
                             </ol>
                           </nav>
-                        <h1 class="mb-0 fw-bold">질문 상세 페이지</h1>
+                        <h1 class="mb-0 fw-bold">{{major}}</h1>
                     </div>
                 </div>
             </div>
@@ -321,28 +319,25 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            
-            
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
 
-<body>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-md-flex align-items-center">
+                                        <div>
 
-<div class="container my-3">
-        <div class="row">
-            <div class="col-md-8 col-lg-9" id="main-area">
-
-    <h1>질문 상세 페이지
-        {% if major %} <span class="badge bg-secondary">{{ major }}</span> {% endif %}
-    </h1>
     {% if post_list.exists %}
 
             {% for p in post_list %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
-                    {% if p.head_image %}
-                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
-                    {% else %}
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
-                    {% endif %}
+
                     <div class="card-body">
 
                         {% if p.major %}
@@ -351,7 +346,8 @@
                             <span class="badge bg-secondary">미분류</span>
                         {% endif %}
 
-                        <h2 class="card-title">{{ p.title }}</h2>
+                        <h2 class="card-title" >
+                            <a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h2>
                         <p class="card-text">{{ p.content | truncatewords:45 }}</p>
 
                         {% if p.tags.exists %}
@@ -362,7 +358,6 @@
                         <br/><br/>
                         {% endif %}
 
-                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on {{ p.create_at }}
@@ -370,34 +365,81 @@
                     </div>
                 </div>
             {% endfor %}
-
-            {% else %}
+                                            {% else %}
                 <h3>아직 게시물이 없습니다.</h3>
             {% endif %}
+                                        </div>
+                                    </div>
 
-            <!-- Pagination -->
-            <ul class="pagination justify-content-center mb-4">
-                <li class="page-item">
-                    <a class="page-link" href="#">&larr; Older</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Newer &rarr;</a>
-                </li>
-            </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">전공 선택</h4>
+                                    <div
+                                        class="mt-5 pb-3 d-flex align-items-center"
+                                    >
+                                        <a href="./컴퓨터공학전공/">
+                                            <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/laptop.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        </a>
+                                        <div class="ms-3">
+                                            <a href="./컴퓨터공학전공/">
+                                            <h5 class="mb-0 fw-bold">
+                                                컴퓨터공학전공
+                                            </h5>
+                                            </a>
+                                        </div>
 
-                </div>
-            </div>
-    </div>
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/economy2.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                경영학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                        <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/math.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                수학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/art.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                미술사학전공
+                                            </h5>
+                                        </div>
+                                    </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+                                    <div class="pt-3 d-flex align-items-center">
+                                         <span class=" btn-circle d-flex align-items-center" style="width: 50px; height: 50px;">
+                                                <img src="{% static 'post/image/chemical.png' %}" alt="Computer Icon" class="rounded-circle img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                                            </span>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                화학전공
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Column -->
                 </div>
