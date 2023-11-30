@@ -26,13 +26,21 @@
 
             <!-- Post update icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="/blog/update_post/{{ post.pk }}" role="button">Edit Post</a>
+                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button">Edit Post</a>
             {% endif %}
 
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="/blog/delete_post/{{ post.pk }}" role="button">DELETE Post</a>
+                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button">DELETE Post</a>
             {% endif %}
+
+            <script>
+            document.getElementById('deleteBtn').addEventListener('click', function() {
+              if (confirm("질문을 삭제하시겠습니까?")) {
+                window.location.href = "{% url 'post:delete_post' pk=object.pk %}";
+              }
+            });
+          </script>
 
             <!-- Post major-->
             {% if post.major %}

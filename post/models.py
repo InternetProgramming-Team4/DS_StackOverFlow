@@ -9,8 +9,8 @@ import uuid
 
 class Vote(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    voted_object_id = models.UUIDField(default=uuid.uuid4)
-    voted_object = GenericForeignKey('content_type', 'voted_object_id')
+    object_id = models.UUIDField(default=uuid.uuid4)
+    voted_object = GenericForeignKey('content_type', 'object_id')
 
     DOWNVOTE = -1
     UPVOTE = 1
