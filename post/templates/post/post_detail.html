@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html lang="ko">
 
 <head>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'post/bootstrap/bootstrap.min.css' %}" media="screen">
 
     <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -32,15 +34,15 @@
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
                 <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button">DELETE Post</a>
-            {% endif %}
 
-            <script>
-            document.getElementById('deleteBtn').addEventListener('click', function() {
-              if (confirm("질문을 삭제하시겠습니까?")) {
-                window.location.href = "{% url 'post:delete_post' pk=object.pk %}";
-              }
-            });
-          </script>
+                <script>
+                    document.getElementById('deleteBtn').addEventListener('click', function() {
+                      if (confirm("질문을 삭제하시겠습니까?")) {
+                        window.location.href = "{% url 'post:delete_post' pk=object.pk %}";
+                      }
+                    });
+                </script>
+            {% endif %}
 
             <!-- Post major-->
             {% if post.major %}
@@ -57,7 +59,7 @@
         {% endif %}
         <!-- Post content-->
         <section class="mb-5">
-            <p> {{ post.content }}</p>
+            <p> {{ post.content | linebreaks }}</p>
 
             <!-- if문 입력 -->
             {% if post.file_upload %}
@@ -90,41 +92,84 @@
     <section class="mb-5">
         <div class="card bg-light">
             <div class="card-body">
+
                 <!-- Comment form-->
-                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                <!-- Comment with nested comments-->
-                <div class="d-flex mb-4">
-                    <!-- Parent comment-->
-                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                    <div class="ms-3">
-                        <div class="fw-bold">Commenter Name</div>
-                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                        <!-- Child comment 1-->
-                        <div class="d-flex mt-4">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold">Commenter Name</div>
-                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                            </div>
-                        </div>
-                        <!-- Child comment 2-->
-                        <div class="d-flex mt-4">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold">Commenter Name</div>
-                                When you put money directly to a problem, it makes a good headline.
-                            </div>
-                        </div>
+                {% if user.is_authenticated %}
+                <form class="mb-4" id="comment-form" method="POST" action="{{post.get_absolute_url}}new_comment/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ comment_form | crispy }}
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Submit </button>
+                {% else %}
+                    <a role="button" class="btn btn-sm" href="#" data-toggle="modal" data-target="#loginModal">로그인하고 댓글을 남겨주세요</a>
+                {% endif %}
+                </form>
+
                 <!-- Single comment-->
-                <div class="d-flex">
-                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                    <div class="ms-3">
-                        <div class="fw-bold">Commenter Name</div>
-                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                {% if post.comment_set.exists %}
+                    {% for comment in post.comment_set.iterator %}
+
+                    <div class="d-flex" id="comment={{comment.pk}}">
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="ms-3">
+
+                            <!-- Comment update icon -->
+                            {% if user.is_authenticated and comment.author == user %}
+                                <a role="button" class="btn btn-sm btn-info float-end" id="comment-{{comment.pk}}-update-btn" onclick="toggleEditForm({{ comment.pk }})">EDIT</a>
+                            {% endif %}
+
+                            <!-- Comment delete icon -->
+                            {% if user.is_authenticated and comment.author == user %}
+                                <a id="comment-{{comment.pk}}-delete-btn" class="btn btn-sm btn-info float-end" role="button">DELETE</a>
+
+                                <script>
+                                    document.getElementById('comment-{{comment.pk}}-delete-btn').addEventListener('click', function() {
+                                      if (confirm("댓글을 삭제하시겠습니까?")) {
+                                        window.location.href = "{% url 'post:delete_comment' pk=comment.pk %}";
+                                      }
+                                    });
+                                </script>
+                            {% endif %}
+
+                            <div class="fw-bold">{{comment.author}} & {{ comment.created_at }}</div>
+                            <div id="comment-content-{{ comment.pk }}">{{ comment.content | linebreaks }}</div>
+                            <!-- 수정 폼이 표시될 영역 -->
+                                <div id="comment-edit-form-{{ comment.pk }}" style="display: none;"></div>
+                            {% if comment.created_at != comment.modified_at %}
+                                <p class="text-muted"><small> Updated : {{ comment.modified_at }}</small></p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+
+                    {% endfor %}
+                    <script>
+                        function toggleEditForm(commentId) {
+                            // Toggle the visibility of the edit form
+                            $(`#comment-edit-form-${commentId}`).toggle();
+                            $(`#comment-content-${commentId}`).toggle();
+
+                            // Load the edit form content if it's not loaded yet
+                            if ($(`#comment-edit-form-${commentId}`).is(':visible') && !$(`#comment-edit-form-${commentId}`).html().trim()) {
+                                loadEditForm(commentId);
+                            }
+                        }
+
+                        function loadEditForm(commentId) {
+                            $.ajax({
+                                url: `/post/update_comment/${commentId}`,
+                                type: 'GET',
+                                success: function (response) {
+                                    $(`#comment-edit-form-${commentId}`).html(response);
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                    </script>
+                {% endif %}
+
             </div>
         </div>
     </section>
@@ -134,16 +179,15 @@
 </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+<!--        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+<!--        crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
