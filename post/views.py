@@ -66,8 +66,6 @@ class PostDetail(DetailView):
 
         context['vote'] = vote
         context['comment_vote_counts'] = comment_vote_counts
-
-        print("comment_vote_counts:", context.get('comment_vote_counts'))
         return context
 
 
