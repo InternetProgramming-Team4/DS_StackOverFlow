@@ -9,8 +9,8 @@ import uuid
 
 class Vote(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    voted_object_id = models.UUIDField(default=uuid.uuid4)
-    voted_object = GenericForeignKey('content_type', 'voted_object_id')
+    object_id = models.UUIDField(default=uuid.uuid4)
+    voted_object = GenericForeignKey('content_type', 'object_id')
 
     DOWNVOTE = -1
     UPVOTE = 1
@@ -45,7 +45,6 @@ class Post(models.Model):
     major = models.ForeignKey(Major, null=True, blank=False, on_delete=models.CASCADE)
     votes = GenericRelation(Vote, null=True, related_query_name='post')
 
-
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'
 
@@ -53,4 +52,15 @@ class Post(models.Model):
         return f'/post/{self.major.slug}/{self.pk}/'
 
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url(self):
+        return f'{self.post.get_absolute_url()}#comment-{self.pk}'

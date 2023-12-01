@@ -22,7 +22,7 @@
             href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
         />
         <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
-        
+
         <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
         <!-- Custom CSS -->
         <link
@@ -179,7 +179,7 @@
 
                         {% if user.is_authenticated %}
                             <a class="font-16" style="margin-right:20px; color : grey">
-                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a> 
+                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a>
 
                             <a href="{% url 'single_pages:logout' %}" class="font-16" style="margin-right:5px;">Logout</a>
                         {% endif %}
@@ -287,6 +287,7 @@
                                     ><span class="hide-menu">내 페이지</span></a
                                 >
                             </li>
+                        </ul>
                     </nav>
                     <!-- End Sidebar navigation -->
                 </div>
@@ -321,30 +322,24 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            
-            
-    
-        
+
+
+
+
         <body>
             <div class="container my-3">
                 <div class="row">
                     <div class="col-md-8 col-lg-9" id="main-area">
-        
-        {% block head_title %}
-            Create Post
-        {% endblock %}
-        
-        
-            <h1>질문 등록</h1>
-            <hr>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                        <table>
-                            {{ form  | crispy }}
-                        </table>
-                        <button type="submit"> Submit </button>
-                </form>
-            </div>
+    <h1> Edit Post</h1>
+    <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <table>
+                    {{ form  | crispy }}
+                </table>
+                <button type="submit"> Submit </button>
+        </form>
+</div>
         </div>
         </div>
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -356,7 +351,7 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
-        
+
         </body>
                     <!-- Column -->
                 </div>
