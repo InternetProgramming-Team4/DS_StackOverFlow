@@ -55,7 +55,19 @@ class PostDetail(DetailView):
         downvotes = Vote.objects.filter(content_type=content_type, object_id=post.id, score=Vote.DOWNVOTE).count()
         vote = upvotes - downvotes
 
+        content_type_comment = ContentType.objects.get_for_model(Comment)
+        comment_vote_counts = {}
+        for comment in post.comment_set.all():
+            comment_upvotes = Vote.objects.filter(content_type=content_type_comment, object_id=comment.id,
+                                                  score=Vote.UPVOTE).count()
+            comment_downvotes = Vote.objects.filter(content_type=content_type_comment, object_id=comment.id,
+                                                    score=Vote.DOWNVOTE).count()
+            comment_vote_counts[comment.pk] = comment_upvotes - comment_downvotes
+
         context['vote'] = vote
+        context['comment_vote_counts'] = comment_vote_counts
+
+        print("comment_vote_counts:", context.get('comment_vote_counts'))
         return context
 
 
@@ -115,16 +127,13 @@ def nomajorlist(request):
     )
 
 
-
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     template_name = 'post/register.html'
     fields = ['title', 'content', 'head_image', 'file_upload', 'major']
 
-
     def test_func(self):
         return self.request.user.is_authenticated
-
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -198,6 +207,55 @@ def delete_comment(request, pk):
         return redirect(post.get_absolute_url())
     else:
         return PermissionDenied
+
+
+class UpvoteCommentView(View):
+    def post(self, request, slug, pk, comment_pk):
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        user = self.request.user
+        content_type = ContentType.objects.get_for_model(Comment)
+
+        # 사용자의 투표 정보 가져오기
+        vote = Vote.objects.filter(content_type=content_type, object_id=comment.id, voter=user).first()
+
+        if vote and vote.score == Vote.DOWNVOTE:
+            # 이미 Downvote를 한 경우에는 아무 동작도 하지 않음
+            pass
+
+        else:
+            if vote:
+                # 이미 투표한 경우, 투표 취소
+                vote.delete()
+            else:
+                # 투표하지 않은 경우, Upvote
+                Vote.objects.create(content_type=content_type, voted_object=comment, score=Vote.UPVOTE, voter=user)
+
+        # 리다이렉트
+        return HttpResponseRedirect(reverse('post:post_detail', kwargs={'slug': slug, 'pk': str(pk)}))
+
+class DownvoteCommentView(View):
+    def post(self, request, slug, pk, comment_pk):
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        user = self.request.user
+        content_type = ContentType.objects.get_for_model(Comment)
+
+        # 사용자의 투표 정보 가져오기
+        vote = Vote.objects.filter(content_type=content_type, object_id=comment.id, voter=user).first()
+
+        if vote and vote.score == Vote.UPVOTE:
+            # 이미 Downvote를 한 경우에는 아무 동작도 하지 않음
+            pass
+        else:
+            if vote:
+                # 이미 투표한 경우, 투표 취소
+                vote.delete()
+            else:
+                # 투표하지 않은 경우, Downvote
+                Vote.objects.create(content_type=content_type, voted_object=comment, score=Vote.DOWNVOTE, voter=user)
+
+        # 리다이렉트
+        return HttpResponseRedirect(reverse('post:post_detail', kwargs={'slug': slug, 'pk': str(pk)}))
+
 
 class PostSearchView(ListView):
     model = Post
