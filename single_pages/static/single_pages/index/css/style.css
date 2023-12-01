@@ -400,7 +400,7 @@ body[data-theme="dark"]
     > ul
     > li.current
     .step {
-    border-color: (183, 0, 80)!important;
+    border-color: rgb(183, 0, 80) !important;
     background-color: #000;
 }
 body[data-theme="dark"] .wizard-content .wizard > .steps > ul > li.current > a {
