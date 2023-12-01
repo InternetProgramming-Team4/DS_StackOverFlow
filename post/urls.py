@@ -14,4 +14,5 @@ urlpatterns = [
     path('<str:slug>/<int:pk>/upvote_post/', views.UpvotePostView.as_view(), name='upvote_post'),
     path('<str:slug>/<int:pk>/downvote_post/', views.DownvotePostView.as_view(), name='downvote_post'),
     path('<str:slug>/<int:pk>/new_comment/', views.new_comment),
+    path('/search/', views.PostSearchView.as_view(), name='post_searched'),
 ]

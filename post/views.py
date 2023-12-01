@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
@@ -26,7 +27,8 @@ class PostList(ListView):
 
 
 def major_page(request, slug):
-    major = Major.objects.get(slug=slug)
+    # major = Major.objects.get(slug=slug)  major오류로 인해 변경
+    major = get_object_or_404(Major, slug=slug)
     post_list = Post.objects.filter(major=major).order_by('-pk')
 
     return render (
@@ -196,3 +198,21 @@ def delete_comment(request, pk):
         return redirect(post.get_absolute_url())
     else:
         return PermissionDenied
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = 'post/post_list.html'
+    context_object_name = 'post_list'
+    paginate_by = 10  # 페이지당 아이템 수 조정 (원하는대로 변경 가능)
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        if query:
+            return Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).order_by('-pk')
+        else:
+            return Post.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('query', '')
+        return context
