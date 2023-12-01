@@ -331,7 +331,12 @@
         </div>
         <div class="card-body">
             <center class="m-t-30">
-                <img src="{%static 'single_pages/images/duksung_symbol.png'%}" alt="Duksung Symbol" class="rounded-circle" width="150" style="margin-top: -100px;" />
+                {% if user.profile.profile_picture %}
+                    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" width="150" style="margin-top: -100px;" />
+                {% else %}
+                    <!-- 기본 이미지 -->
+                    <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" class="rounded-circle" width="150" style="margin-top: -100px;" />
+                {% endif %}
                 <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i></a></div>
             </center>
         </div>

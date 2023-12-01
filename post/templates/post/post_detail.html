@@ -111,7 +111,19 @@
                     {% for comment in post.comment_set.iterator %}
 
                     <div class="d-flex" id="comment={{comment.pk}}">
-                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+<!--                        <div class="flex-shrink-0">
+                                <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                              </div>-->
+                        {% if user.profile.profile_picture %}
+                        <div class="flex-shrink-0">
+                            <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" width="50" />
+                        </div>
+                        {% else %}
+                            <!-- 기본 이미지 -->
+                        <div class="flex-shrink-0">
+                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" class="rounded-circle" width="50" />
+                        </div>
+                        {% endif %}
                         <div class="ms-3">
 
                             <!-- Comment update icon -->
