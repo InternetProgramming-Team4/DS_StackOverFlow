@@ -58,6 +58,7 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    votes = GenericRelation(Vote, null=True, related_query_name='comment')
 
     def __str__(self):
         return f'{self.author}::{self.content}'
