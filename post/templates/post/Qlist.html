@@ -152,13 +152,15 @@
                                     <span class="font-16">Search</span></a
                                 >
 
-                                <form class="app-search position-absolute">
+                                <form method="GET" action="{% url 'post:post_searched'%}" class="app-search position-absolute" >
                                     <input
                                         type="text"
+                                        id=""
                                         class="form-control"
+                                        name="query"
                                         placeholder="Search &amp; enter"
                                     />
-                                    <a class="srh-btn"
+                                    <a class="srh-btn" type="submit"
                                         ><i class="mdi mdi-window-close"></i
                                     ></a>
                                 </form>

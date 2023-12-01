@@ -10,7 +10,6 @@ from django.contrib.auth import get_user_model
 from post.models import Post
 from .models import Profile
 
-
 # 사용자가 있는지 검사하는 함수
 
 
