@@ -13,7 +13,6 @@ from .models import Profile
 # 사용자가 있는지 검사하는 함수
 
 
-
 # Create your views here.
 def main(request):
     return render(
@@ -21,19 +20,26 @@ def main(request):
         'single_pages/index.html'
     )
 
+
 def user(request):
-    post_list = Post.objects.all().order_by('-pk')
+    author = request.user
+    post_list = Post.objects.filter(author=author).order_by('-pk')
 
     return render(
         request,
-        'single_pages/MyPage.html'
+        'single_pages/MyPage.html',
+        {
+            'post_list': post_list,
+        }
     )
+
 
 def login(request):
     return render(
         request,
         'single_pages/login.html'
     )
+
 
 def signup(request):
     if request.method == "POST":
@@ -74,6 +80,7 @@ def signup(request):
     context = {'form': form}
     return render(request, 'single_pages/signup.html', context)
 
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
@@ -97,7 +104,7 @@ def logout(request):
     return redirect('/')
 
 
-#로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
+# 로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
 @login_required
 def edit_major(request):
     if request.method == 'POST':
