@@ -8,4 +8,5 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     major = models.TextField(max_length=15)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    is_who = models.BooleanField(default=False)
 

@@ -55,6 +55,15 @@ def signup(request):
             Profile.objects.create(user=new_user, major=major)
             # 새로운 사용자 User에 추가
 
+            userp = User.objects.get(username='유제혁')
+
+            # 사용자 프로필 가져오기
+            user_profile = Profile.objects.get(user=userp)
+
+            # is_who 속성
+            user_profile.is_who = True
+            user_profile.save()
+
             return redirect('../')
             # 회원가입 완료 후에 메인페이지로 이동
 
@@ -100,6 +109,4 @@ def edit_major(request):
 
     else:
         return redirect('/MyPage/')
-
-
 

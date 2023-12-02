@@ -114,14 +114,19 @@
 <!--                        <div class="flex-shrink-0">
                                 <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
                               </div>-->
-                        {% if user.profile.profile_picture %}
-                        <div class="flex-shrink-0">
-                            <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" width="50" />
+<!--                        {% if user.username == major %}-->
+<!--                            &lt;!&ndash; 교수님의 경우 프로필 표시 &ndash;&gt;-->
+<!--                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" />-->
+<!--                        {% endif %}-->
+
+                        {% if comment.author.profile.is_who %}
+                        <div class="flex-shrink-0" >
+                            <img src="{% static 'single_pages/images/pro.png' %}" alt="Profile Picture" class="rounded-circle" width="50" />
                         </div>
                         {% else %}
                             <!-- 기본 이미지 -->
                         <div class="flex-shrink-0">
-                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" class="rounded-circle" width="50" />
+                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" class="rounded-circle" style="margin-left:5px"  width="40" />
                         </div>
                         {% endif %}
                         <div class="ms-3">
@@ -144,7 +149,17 @@
                                 </script>
                             {% endif %}
 
-                            <div class="fw-bold">{{comment.author}} & {{ comment.created_at }}</div>
+                            <div class="fw-bold">
+
+                                {% if comment.author.profile.is_who %}
+                                    {{comment.author}}
+                                {% else %}
+                                    익명덕우
+                                {% endif %}
+                                ----
+                                {{ comment.created_at }}
+
+                            </div>
                             <div id="comment-content-{{ comment.pk }}">{{ comment.content | linebreaks }}</div>
                             <!-- 수정 폼이 표시될 영역 -->
                                 <div id="comment-edit-form-{{ comment.pk }}" style="display: none;"></div>
