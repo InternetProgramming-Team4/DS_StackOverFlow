@@ -172,9 +172,8 @@
                                   {% csrf_token %}
                                   <button type="submit" name="vote_type" value="1">Upvote</button>
                                 </form>
-                                {% with comment.pk as comment_pk %}
+
                                 <p>Vote Count: {{ comment_vote_counts|from_dict:comment.pk }}</p>
-                                {% endwith %}
 
                                 <form method="post" action="{% url 'post:downvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
                                   {% csrf_token %}

@@ -399,19 +399,24 @@
                     <div class="col-lg-19">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Recent Questions</h4>
+                                <h4 class="card-title">나의 질문</h4>
                             </div>
                             <div class="comment-widgets scrollable">
                                 <!-- Comment Row -->
                                 {%for p in post_list %}
-                               <div class="d-flex flex-row comment-row">
+                                <a href="{% url 'post:post_detail' slug=p.major.slug pk=p.pk %}" style="color: black">
+                                <div class="d-flex flex-row comment-row">
                                     <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
                                             class="rounded-circle"></div>-->
                                     <div class="comment-text active w-100">
                                         <h5 class="font-medium">{{p.title}}</h5>
-                                        <span class="m-b-15 d-block">컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요? 컴공 공부 잘하는 방법 없나요?</span>
+                                        <span class="m-b-15 d-block">{{p.content}}</span>
                                         <div class="comment-footer ">
-                                            <span class="text-muted float-end">November 26 2023</span>
+                                            {% if comment.created_at != comment.modified_at %}
+                                            <span class="text-muted float-end">{{p.updated_at}}</span>
+                                            {% else %}
+                                            <span class="text-muted float-end">{{p.created_at}}</span>
+                                            {% endif %}
 <!--                                            <span class="action-icons active">-->
 <!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
 <!--&lt;!&ndash;-->
@@ -421,41 +426,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                                 {% endfor %}
-                                <!-- Comment Row -->
-                               <div class="d-flex flex-row comment-row">
-                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                            class="rounded-circle"></div>-->
-                                    <div class="comment-text active w-100">
-                                        <h5 class="font-medium">오늘은 내 생일</h5>
-                                        <span class="m-b-15 d-block">~~~~~~~~~</span>
-                                        <div class="comment-footer ">
-                                            <span class="text-muted float-end">November 25 2023</span>
 
-<!--                                            <span class="action-icons active">-->
-<!--                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>-->
-<!--&lt;!&ndash;                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>&ndash;&gt;-->
-<!--                                            </span>-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                               <div class="d-flex flex-row comment-row">
-                                    <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                                            class="rounded-circle"></div>-->
-                                    <div class="comment-text active w-100">
-                                        <h5 class="font-medium">제목</h5>
-                                        <span class="m-b-15 d-block">내용</span>
-                                        <div class="comment-footer ">
-                                            <span class="text-muted float-end">{{p.created_at}}</span>
-
-                                           <!--<span class="action-icons active">
-                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                                                <a href="javascript:void(0)" class="heart-icon" onclick="toggleHeart(this)"><i class="ti-heart"></i></a>
-                                            </span>-->
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
