@@ -1,7 +1,8 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.views.decorators.cache import cache_control
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Major, Vote, Comment
 from django.contrib.contenttypes.models import ContentType
@@ -272,3 +273,24 @@ class PostSearchView(ListView):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('query', '')
         return context
+
+
+def post_sort(request, slug):
+    print('here')
+    major = get_object_or_404(Major, slug=slug)
+    sort_option = request.GET.get('btnradio')
+
+    if sort_option == 'popular':
+        posts = Post.objects.filter(major=major).annotate(num_comments=Count('comment')).order_by('-num_comments')
+    elif sort_option == 'latest':
+        posts = Post.objects.filter(major=major).order_by('-created_at')
+    elif sort_option == 'recommended':
+        posts = Post.objects.filter(major=major).annotate(upvote_count=Count('votes', filter=Q(votes__score=1))).order_by('-upvote_count')
+
+    return render(request, 'post/post_list.html',
+                  {'post_list': posts,
+                   'slug': slug
+                  })
+
+
+
