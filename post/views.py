@@ -285,7 +285,9 @@ def post_sort(request, slug):
     elif sort_option == 'latest':
         posts = Post.objects.filter(major=major).order_by('-created_at')
     elif sort_option == 'recommended':
-        posts = Post.objects.filter(major=major).annotate(upvote_count=Count('votes', filter=Q(votes__score=1))).order_by('-upvote_count')
+        posts = Post.objects.filter(major=major).annotate(
+            upvote_count=Count('votes', filter=Q(votes__score=1)) - Count('votes', filter=Q(votes__score=-1))
+        ).order_by('-upvote_count')
 
     return render(request, 'post/post_list.html',
                   {'post_list': posts,
