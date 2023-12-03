@@ -10,11 +10,12 @@ urlpatterns = [
     path('update_comment/<int:pk>', views.CommentUpdate.as_view(), name='update_comment'),
     path('delete_comment/<int:pk>', views.delete_comment, name='delete_comment'),
     path('<str:slug>/', views.major_page, name='Qlist'),
+    path('<str:slug>/post_sort/', views.post_sort, name='post_sort'),
     path('<str:slug>/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
     path('<str:slug>/<int:pk>/upvote_post/', views.UpvotePostView.as_view(), name='upvote_post'),
     path('<str:slug>/<int:pk>/downvote_post/', views.DownvotePostView.as_view(), name='downvote_post'),
     path('<str:slug>/<int:pk>/new_comment/', views.new_comment),
     path('<str:slug>/<int:pk>/upvote_comment/<int:comment_pk>', views.UpvoteCommentView.as_view(), name='upvote_comment'),
     path('<str:slug>/<int:pk>/downvote_comment//<int:comment_pk>', views.DownvoteCommentView.as_view(), name='downvote_comment'),
-    path('search/', views.PostSearchView.as_view(), name='post_searched'),
+    path('/search/', views.PostSearchView.as_view(), name='post_searched'),
 ]

@@ -70,6 +70,54 @@
 
                 color: #333; /* 타이틀의 색상을 설정합니다 */
             }
+
+            .btn {
+                color: rgb(183, 0, 80);
+                background-color: transparent;
+                border-color: rgb(183, 0, 80) !important;
+            }
+
+            .btn-custom-color:hover {
+                background-color: rgb(163, 0, 70) !important;
+                border-color: rgb(163, 0, 70) !important;
+            }
+
+            .btn-custom-color:focus,
+            .btn-custom-color.focus {
+                box-shadow: none !important;
+            }
+
+            #btnradio1:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio2:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio3:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio11:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio22:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio33:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+
         </style>
 
     </head>
@@ -331,10 +379,35 @@
         <div class="row">
             <div class="col-md-8 col-lg-9" id="main-area">
 
-    <h1>질문 상세 페이지
-        {% if major %} <span class="badge bg-secondary">{{ major }}</span> {% endif %}
-    </h1>
     {% if post_list.exists %}
+                {% if major %}
+                <h1>질문 상세 페이지
+                    <span class="badge bg-secondary">{{ major }}</span>
+                </h1>
+                {% endif %}
+                {% if slug %}
+                <h1>질문 상세 페이지
+                    <span class="badge bg-secondary">{{ slug }}</span>
+                </h1>
+                {% endif %}
+                {% if major %}
+                    <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
+                {% endif %}
+                {% if slug %}
+                    <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
+                {% endif %}
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="latest" checked>
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio1">최신순</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="popular">
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio2">인기순</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="recommended">
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio3">추천순</label>
+                    </div>
+                </form>
+
 
             {% for p in post_list %}
                 <!-- Blog Post -->
@@ -354,6 +427,7 @@
 
                         <h2 class="card-title">{{ p.title }}</h2>
                         <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                        <p>댓글 수: {{ p.comment_set.count }}</p>
 
                         {% if p.tags.exists %}
                         <i class="fa fa-tags"></i>
@@ -450,6 +524,42 @@
         <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
         <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
         <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
+        <script>
+            const radios = document.querySelectorAll('.btn-check');
+            radios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    document.getElementById('sortForm').submit();
+                });
+            });
+
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const btnradio = document.querySelectorAll(".btn-check");
+
+                btnradio.forEach(btn => {
+                    btn.addEventListener("click", function() {
+                        btnradio.forEach(radio => {
+                            radio.checked = false;
+                            localStorage.removeItem(radio.id);
+                        });
+                        this.checked = true;
+                        localStorage.setItem(this.id, "checked");
+                    });
+                });
+
+                btnradio.forEach(btn => {
+                    const checked = localStorage.getItem(btn.id);
+                    if (checked === "checked") {
+                        btn.checked = true;
+                    }
+                });
+            });
+        </script>
+
+
+
+
 
            <!-- <script>
     // JavaScript로 아이콘 토글 구현
