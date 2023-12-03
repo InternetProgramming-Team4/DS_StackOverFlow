@@ -10,9 +10,7 @@ from django.contrib.auth import get_user_model
 from post.models import Post
 from .models import Profile
 
-
 # 사용자가 있는지 검사하는 함수
-
 
 
 # Create your views here.
@@ -22,19 +20,26 @@ def main(request):
         'single_pages/index.html'
     )
 
+
 def user(request):
-    post_list = Post.objects.all().order_by('-pk')
+    author = request.user
+    post_list = Post.objects.filter(author=author).order_by('-pk')
 
     return render(
         request,
-        'single_pages/MyPage.html'
+        'single_pages/MyPage.html',
+        {
+            'post_list': post_list,
+        }
     )
+
 
 def login(request):
     return render(
         request,
         'single_pages/login.html'
     )
+
 
 def signup(request):
     if request.method == "POST":
@@ -56,6 +61,15 @@ def signup(request):
             Profile.objects.create(user=new_user, major=major)
             # 새로운 사용자 User에 추가
 
+            userp = User.objects.get(username='유제혁')
+
+            # 사용자 프로필 가져오기
+            user_profile = Profile.objects.get(user=userp)
+
+            # is_who 속성
+            user_profile.is_who = True
+            user_profile.save()
+
             return redirect('../')
             # 회원가입 완료 후에 메인페이지로 이동
 
@@ -65,6 +79,7 @@ def signup(request):
 
     context = {'form': form}
     return render(request, 'single_pages/signup.html', context)
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -89,7 +104,7 @@ def logout(request):
     return redirect('/')
 
 
-#로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
+# 로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
 @login_required
 def edit_major(request):
     if request.method == 'POST':
@@ -101,6 +116,4 @@ def edit_major(request):
 
     else:
         return redirect('/MyPage/')
-
-
 

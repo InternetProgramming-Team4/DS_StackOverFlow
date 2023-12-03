@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load crispy_forms_tags %}
+{% load comment_vote_dict %}
 <html lang="ko">
 
 <head>
@@ -109,9 +110,26 @@
                 <!-- Single comment-->
                 {% if post.comment_set.exists %}
                     {% for comment in post.comment_set.iterator %}
-
+                    <hr>
                     <div class="d-flex" id="comment={{comment.pk}}">
-                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+<!--                        <div class="flex-shrink-0">
+                                <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                              </div>-->
+<!--                        {% if user.username == major %}-->
+<!--                            &lt;!&ndash; 교수님의 경우 프로필 표시 &ndash;&gt;-->
+<!--                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" />-->
+<!--                        {% endif %}-->
+
+                        {% if comment.author.profile.is_who %}
+                        <div class="flex-shrink-0" >
+                            <img src="{% static 'single_pages/images/pro.png' %}" alt="Profile Picture" class="rounded-circle" width="50" />
+                        </div>
+                        {% else %}
+                            <!-- 기본 이미지 -->
+                        <div class="flex-shrink-0">
+                            <img src="{% static 'single_pages/images/duksung_symbol.png' %}" alt="Duksung Symbol" class="rounded-circle" style="margin-left:5px"  width="40" />
+                        </div>
+                        {% endif %}
                         <div class="ms-3">
 
                             <!-- Comment update icon -->
@@ -132,10 +150,39 @@
                                 </script>
                             {% endif %}
 
-                            <div class="fw-bold">{{comment.author}} & {{ comment.created_at }}</div>
+                            <div class="fw-bold">
+
+                                {% if comment.author.profile.is_who %}
+                                    {{comment.author}}
+                                {% else %}
+                                    익명덕우
+                                {% endif %}
+                                ----
+                                {{ comment.created_at }}
+
+                            </div>
                             <div id="comment-content-{{ comment.pk }}">{{ comment.content | linebreaks }}</div>
+
                             <!-- 수정 폼이 표시될 영역 -->
                                 <div id="comment-edit-form-{{ comment.pk }}" style="display: none;"></div>
+
+                            <!-- 투표 영역 -->
+                            {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'post:upvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
+                                  {% csrf_token %}
+                                  <button type="submit" name="vote_type" value="1">Upvote</button>
+                                </form>
+
+                                <p>Vote Count: {{ comment_vote_counts|from_dict:comment.pk }}</p>
+
+                                <form method="post" action="{% url 'post:downvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
+                                  {% csrf_token %}
+                                  <button type="submit" name="vote_type" value="-1">Downvote</button>
+                                </form>
+                            {% else %}
+                                <p>Login to vote</p>
+                            {% endif %}
+
                             {% if comment.created_at != comment.modified_at %}
                                 <p class="text-muted"><small> Updated : {{ comment.modified_at }}</small></p>
                             {% endif %}

@@ -65,8 +65,55 @@
             font-size: 160px; /* 타이틀의 크기를 크게 조정합니다 */
             font-weight: bold;
 
-            color: #333; /* 타이틀의 색상을 설정합니다 */
-        }
+                color: #333; /* 타이틀의 색상을 설정합니다 */
+            }
+
+            .btn {
+                color: rgb(183, 0, 80);
+                background-color: transparent;
+                border-color: rgb(183, 0, 80) !important;
+            }
+
+            .btn-custom-color:hover {
+                background-color: rgb(163, 0, 70) !important;
+                border-color: rgb(163, 0, 70) !important;
+            }
+
+            .btn-custom-color:focus,
+            .btn-custom-color.focus {
+                box-shadow: none !important;
+            }
+
+            #btnradio1:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio2:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio3:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio11:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio22:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
+            #btnradio33:checked + label.btn-custom-color {
+                background-color: rgb(183, 0, 80) !important;
+                border-color: rgb(183, 0, 80) !important;
+                box-shadow: none !important;
+            }
 
 .card-text {
     line-height: 1.5; /* 원하는 줄 간격 설정 */
@@ -199,7 +246,6 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
 
-
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
@@ -325,6 +371,143 @@
                     <h1 class="mb-0 fw-bold">{{major}}</h1>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+
+
+
+<body>
+
+<div class="container my-3">
+        <div class="row">
+            <div class="col-md-8 col-lg-9" id="main-area">
+
+    {% if post_list.exists %}
+                {% if major %}
+                <h1>질문 상세 페이지
+                    <span class="badge bg-secondary">{{ major }}</span>
+                </h1>
+                {% endif %}
+                {% if slug %}
+                <h1>질문 상세 페이지
+                    <span class="badge bg-secondary">{{ slug }}</span>
+                </h1>
+                {% endif %}
+                {% if major %}
+                    <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
+                {% endif %}
+                {% if slug %}
+                    <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
+                {% endif %}
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="latest" checked>
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio1">최신순</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="popular">
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio2">인기순</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="recommended">
+                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio3">추천순</label>
+                    </div>
+                </form>
+
+
+            {% for p in post_list %}
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    {% if p.head_image %}
+                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
+                    {% else %}
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
+                    {% endif %}
+                    <div class="card-body">
+
+                        {% if p.major %}
+                            <span class="badge bg-secondary">{{ p.major }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary">미분류</span>
+                        {% endif %}
+
+                        <h2 class="card-title">{{ p.title }}</h2>
+                        <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                        <p>댓글 수: {{ p.comment_set.count }}</p>
+
+                        {% if p.tags.exists %}
+                        <i class="fa fa-tags"></i>
+                            {% for tag in p.tags.iterator %}
+                                <a href="{{ tag.get_absolute_url }}"><span class="badge bg-secondary">{{ tag }}</span></a>
+                            {% endfor %}
+                        <br/><br/>
+                        {% endif %}
+
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{ p.create_at }}
+                        <a href="#">개발 예정</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% else %}
+                <h3>아직 게시물이 없습니다.</h3>
+            {% endif %}
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+
+                </div>
+            </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+                    <!-- Column -->
+                </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+>>>>>>> 51b230becbb35267c9ebe15d49ef7a0741961713
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -356,9 +539,54 @@
                         <span class="badge bg-secondary">미분류</span>
                     {% endif %}
 
+<<<<<<< HEAD
                     <h2 class="card-title">
                         <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
                     </h2>
+=======
+        <!--Custom JavaScript -->
+        <script src=" {% static 'single_pages/index/js/custom.js' %}"></script>
+        <!--This page JavaScript -->
+        <!--chartis chart-->
+        <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
+        <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
+        <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
+        <script>
+            const radios = document.querySelectorAll('.btn-check');
+            radios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    document.getElementById('sortForm').submit();
+                });
+            });
+
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const btnradio = document.querySelectorAll(".btn-check");
+
+                btnradio.forEach(btn => {
+                    btn.addEventListener("click", function() {
+                        btnradio.forEach(radio => {
+                            radio.checked = false;
+                            localStorage.removeItem(radio.id);
+                        });
+                        this.checked = true;
+                        localStorage.setItem(this.id, "checked");
+                    });
+                });
+
+                btnradio.forEach(btn => {
+                    const checked = localStorage.getItem(btn.id);
+                    if (checked === "checked") {
+                        btn.checked = true;
+                    }
+                });
+            });
+        </script>
+
+
+
+
 
                       {% if p.image %} {# 이미지가 있는지 확인 #}
                         <img src="{% static 'post/image/laptop.png' %}" alt="Post Image" class="post-image-icon">
