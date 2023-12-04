@@ -47,6 +47,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
         <style>
             .logo-icon img,
             .logo-text {
@@ -136,30 +138,6 @@
                         <!-- toggle and nav items -->
                         <!-- ============================================================== -->
                         <ul class="navbar-nav float-start me-auto">
-                            <!-- ============================================================== -->
-                            <!-- Search -->
-                            <!-- ============================================================== -->
-                            <li class="nav-item search-box">
-                                <a
-                                    class="nav-link waves-effect waves-dark"
-                                    href="javascript:void(0)"
-                                    ><i class="mdi mdi-magnify me-1"></i>
-                                    <span class="font-16">Search</span></a
-                                >
-
-                                <form method="GET" action="{% url 'post:post_searched'%}" class="app-search position-absolute" >
-                                    <input
-                                        type="text"
-                                        id=""
-                                        class="form-control"
-                                        name="query"
-                                        placeholder="Search &amp; enter"
-                                    />
-                                    <a class="srh-btn" type="submit"
-                                        ><i class="mdi mdi-window-close"></i
-                                    ></a>
-                                </form>
-                            </li>
 
                         </ul>
                         <!-- 로그인 되어 있을 시 보이지 않음 -->
