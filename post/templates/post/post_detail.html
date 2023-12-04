@@ -1,18 +1,322 @@
+
 <!DOCTYPE html>
-{% load static %}
+{%load static %}
 {% load crispy_forms_tags %}
 {% load comment_vote_dict %}
-<html lang="ko">
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="keywords"
+            content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Flexy lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Flexy admin lite design, Flexy admin lite dashboard bootstrap 5 dashboard template"
+        />
+        <meta
+            name="description"
+            content="Flexy Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework"
+        />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Duksung StackOverFlow</title>
+        <link
+            rel="canonical"
+            href="https://www.wrappixel.com/templates/Flexy-admin-lite/"
+        />
 
-<head>
-    <title>DS StackOverFlow Post Detail test</title>
-    <link rel="stylesheet" href="{% static 'post/bootstrap/bootstrap.min.css' %}" media="screen">
+        <!-- Custom CSS -->
+        <link
+            href="{% static 'single_pages/index/libs/chartist/dist/chartist.min.css' %}"
+            rel="stylesheet"
+        />
+        <link
+            href="{% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css' %}"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS -->
+        <link
+            href="{% static 'single_pages/index/css/style.min.css' %}"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
 
-    <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-</head>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-<body>
+        <style>
+            .logo-icon img,
+            .logo-text {
+                /* 이미지와 텍스트 사이의 여백을 없애기 위해 margin과 padding 값을 조정합니다 */
+                margin: 0;
+                padding: 0;
+            }
+
+            /* 로고 이미지와 텍스트를 가운데 정렬하기 위한 스타일 */
+            .navbar-brand {
+                /* Flex 컨테이너 설정 */
+                display: flex;
+                flex-direction: row; /* 요소들을 가로로 나열 */
+                justify-content: center; /* 수평 중앙 정렬 */
+                align-items: center; /* 수직 중앙 정렬 */
+            }
+            /* 메인 타이틀 스타일 */
+            .main-title {
+                font-size: 160px; /* 타이틀의 크기를 크게 조정합니다 */
+                font-weight: bold;
+
+                color: #333; /* 타이틀의 색상을 설정합니다 */
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div
+            id="main-wrapper"
+            data-layout="vertical"
+            data-navbarbg="skin5"
+            data-sidebartype="full"
+            data-sidebar-position="absolute"
+            data-header-position="absolute"
+            data-boxed-layout="full"
+        >
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar" data-navbarbg="skin6">
+                <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                    <div class="navbar-header" data-logobg="skin6">
+                        <!-- ============================================================== -->
+                        <!-- Logo -->
+                        <!-- ============================================================== -->
+                        <a class="navbar-brand" href="{% url 'single_pages:main' %}">
+                            <!-- Logo icon -->
+                            <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Light Logo icon -->
+                                <img
+                                    src="{% static 'single_pages/index/images/duksung_symbol.png' %}"
+                                    alt="Duksung Symbol"
+                                    style="width: 60px; height: auto"
+                                />
+                            </b>
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- Light Logo text -->
+                                DUKSUNG
+                            </span>
+                        </a>
+                        <!-- ============================================================== -->
+                        <!-- End Logo -->
+                        <!-- ============================================================== -->
+                        <!-- This is for the sidebar toggle which is visible on mobile only -->
+                        <a
+                            class="nav-toggler waves-effect waves-light d-block d-md-none"
+                            href="{% url 'single_pages:main' %}"
+                            ><i class="mdi mdi-menu"></i
+                        ></a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div
+                        class="navbar-collapse collapse"
+                        id="navbarSupportedContent"
+                        data-navbarbg="skin5"
+                    >
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav float-start me-auto">
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item search-box">
+                                <a
+                                    class="nav-link waves-effect waves-dark"
+                                    href="javascript:void(0)"
+                                    ><i class="mdi mdi-magnify me-1"></i>
+                                    <span class="font-16">Search</span></a
+                                >
+
+                                <form method="GET" action="{% url 'post:post_searched'%}" class="app-search position-absolute" >
+                                    <input
+                                        type="text"
+                                        id=""
+                                        class="form-control"
+                                        name="query"
+                                        placeholder="Search &amp; enter"
+                                    />
+                                    <a class="srh-btn" type="submit"
+                                        ><i class="mdi mdi-window-close"></i
+                                    ></a>
+                                </form>
+                            </li>
+
+                        </ul>
+                        <!-- 로그인 되어 있을 시 보이지 않음 -->
+                        {% if not user.is_authenticated %}
+                         <!-- 회원가입 링크 -->
+                            <a href="{% url 'single_pages:signup' %}" class="font-16" style="margin-right:10px; color : grey" >Register</a>
+
+                         <!-- 로그인 링크 -->
+                            <a href="{% url 'single_pages:login' %}" class="font-16" style="color : grey">Login</a>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                            <a class="font-16" style="margin-right:20px; color : grey">
+                                {{ user }}님, 안녕하세요! {{ user.profile.major }}</a>
+
+                            <a href="{% url 'single_pages:logout' %}" class="font-16" style="margin-right:5px;">Logout</a>
+                        {% endif %}
+
+                        <ul class="navbar-nav float-end">
+
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+
+
+                            <li class="nav-item dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+
+                                    <!-- 유저 사진 -->
+                                    <img
+                                        src="{%static 'single_pages/index/images/duksung_symbol.png'%}"
+                                        alt="user"
+                                        class="rounded-circle"
+                                        width="31"
+                                    />
+
+
+                                </a>
+                                <ul
+                                    class="dropdown-menu dropdown-menu-end user-dd animated"
+                                    aria-labelledby="navbarDropdown"
+                                >
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'single_pages:MyPage' %}"
+                                        ><i class="ti-user m-r-5 m-l-5"></i> 내
+                                        페이지</a
+                                    >
+                                </ul>
+                            </li>
+
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav" >
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{% url 'single_pages:main' %}"
+                                    aria-expanded="false"
+
+                                    ><i class="mdi mdi-view-dashboard"></i
+                                    ><span class="hide-menu"
+                                        >메인 페이지</span
+                                    ></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="/post/"
+                                    aria-expanded="false"
+                                    style="background-color:rgb(183, 0, 80)"
+                                    ><i class="mdi mdi-border-all"></i
+                                    ><span class="hide-menu"
+                                        >질문 리스트</span
+                                    ></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{% url 'post:create_post' %}"
+                                    aria-expanded="false"
+                                    ><i class="mdi mdi-account-network"></i
+                                    ><span class="hide-menu">질문 등록</span></a
+                                >
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a
+                                    class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{% url 'single_pages:MyPage' %}"
+                                    aria-expanded="false"
+                                    ><i class="mdi mdi-face"></i
+                                    ><span class="hide-menu">내 페이지</span></a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 d-flex align-items-center">
+                              <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
+                              <li class="breadcrumb-item active" aria-current="page">질문 상세 페이지</li>
+                            </ol>
+                          </nav>
+                        <h1 class="mb-0 fw-bold">질문 상세 페이지</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
 
     <div class="container my-3">
         <div class="row">
@@ -29,12 +333,12 @@
 
             <!-- Post update icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button">Edit Post</a>
+                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Edit Post</a>
             {% endif %}
 
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button">DELETE Post</a>
+                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">DELETE Post</a>
 
                 <script>
                     document.getElementById('deleteBtn').addEventListener('click', function() {
@@ -55,8 +359,6 @@
         <!-- Preview image figure-->
         {% if post.head_image %}
         <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="..." /></figure>
-        {% else %}
-        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
         {% endif %}
         <!-- Post content-->
         <section class="mb-5">
@@ -101,7 +403,7 @@
                     <div class="form-group">
                         {{ comment_form | crispy }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit </button>
+                    <button type="submit" class="btn btn-primary" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Submit </button>
                 {% else %}
                     <a role="button" class="btn btn-sm" href="#" data-toggle="modal" data-target="#loginModal">로그인하고 댓글을 남겨주세요</a>
                 {% endif %}
@@ -235,6 +537,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+            </div>
+        </div>
 </body>
 
 </html>
