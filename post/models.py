@@ -45,6 +45,11 @@ class Post(models.Model):
     major = models.ForeignKey(Major, null=True, blank=False, on_delete=models.CASCADE)
     votes = GenericRelation(Vote, null=True, related_query_name='post')
 
+    def get_vote_count(self):
+        upvotes = self.votes.filter(score=Vote.UPVOTE).count()
+        downvotes = self.votes.filter(score=Vote.DOWNVOTE).count()
+        return upvotes - downvotes
+
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'
 
