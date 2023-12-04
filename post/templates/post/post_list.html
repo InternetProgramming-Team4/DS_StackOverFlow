@@ -409,10 +409,11 @@
                 <div class="col-md-8 col-lg-8" id="main-area">
 
                     {% if post_list.exists %}
-                    {% if major %}
+                    {% if query %}
+                    <form id="sortForm" action="{% url 'post:post_search_sort' query=query %}" method="GET">
+                    {% elif major %}
                     <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
-                        {% endif %}
-                        {% if slug %}
+                        {% elif slug %}
                         <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
                             {% endif %}
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
