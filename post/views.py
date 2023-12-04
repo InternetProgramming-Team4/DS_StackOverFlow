@@ -294,4 +294,28 @@ def post_sort(request, slug):
                   })
 
 
+def post_search_sort(request, query):
+    sort_option = request.GET.get('btnradio')
 
+    if not query:
+        query = request.GET.get('query', '')
+
+    if query:
+        posts = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).order_by('-pk')
+    else:
+        posts = Post.objects.all()
+
+    # 정렬 로직 추가
+    if sort_option == 'popular':
+        posts = posts.annotate(num_comments=Count('comment')).order_by('-num_comments', '-created_at')
+    elif sort_option == 'latest':
+        posts = posts.order_by('-created_at')
+    elif sort_option == 'recommended':
+        posts = posts.annotate(
+            upvote_count=Count('votes', filter=Q(votes__score=1)) - Count('votes', filter=Q(votes__score=-1))
+        ).order_by('-upvote_count', '-created_at')
+
+    return render(request, 'post/post_list.html',
+                  {'post_list': posts,
+                   'query': query,
+                   })
