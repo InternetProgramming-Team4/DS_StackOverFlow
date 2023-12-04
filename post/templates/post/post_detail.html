@@ -333,12 +333,12 @@
 
             <!-- Post update icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button">Edit Post</a>
+                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Edit Post</a>
             {% endif %}
 
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button">DELETE Post</a>
+                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">DELETE Post</a>
 
                 <script>
                     document.getElementById('deleteBtn').addEventListener('click', function() {
@@ -403,7 +403,7 @@
                     <div class="form-group">
                         {{ comment_form | crispy }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit </button>
+                    <button type="submit" class="btn btn-primary" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Submit </button>
                 {% else %}
                     <a role="button" class="btn btn-sm" href="#" data-toggle="modal" data-target="#loginModal">로그인하고 댓글을 남겨주세요</a>
                 {% endif %}
@@ -537,6 +537,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+            </div>
+        </div>
 </body>
 
 </html>
