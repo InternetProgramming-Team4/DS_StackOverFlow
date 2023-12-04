@@ -21,6 +21,7 @@ def main(request):
     )
 
 
+@login_required
 def user(request):
     author = request.user
     post_list = Post.objects.filter(author=author).order_by('-pk')

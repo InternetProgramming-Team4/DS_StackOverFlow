@@ -280,13 +280,13 @@ def post_sort(request, slug):
     sort_option = request.GET.get('btnradio')
 
     if sort_option == 'popular':
-        posts = Post.objects.filter(major=major).annotate(num_comments=Count('comment')).order_by('-num_comments')
+        posts = Post.objects.filter(major=major).annotate(num_comments=Count('comment')).order_by('-num_comments', '-created_at')
     elif sort_option == 'latest':
         posts = Post.objects.filter(major=major).order_by('-created_at')
     elif sort_option == 'recommended':
         posts = Post.objects.filter(major=major).annotate(
             upvote_count=Count('votes', filter=Q(votes__score=1)) - Count('votes', filter=Q(votes__score=-1))
-        ).order_by('-upvote_count')
+        ).order_by('-upvote_count', '-created_at')
 
     return render(request, 'post/post_list.html',
                   {'post_list': posts,
