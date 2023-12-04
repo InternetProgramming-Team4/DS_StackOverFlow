@@ -276,7 +276,6 @@ class PostSearchView(ListView):
 
 
 def post_sort(request, slug):
-    print('here')
     major = get_object_or_404(Major, slug=slug)
     sort_option = request.GET.get('btnradio')
 
