@@ -173,20 +173,16 @@
                 <!-- ============================================================== -->
                 <a class="navbar-brand" href="{% url 'single_pages:main' %}">
                     <!-- Logo icon -->
-                    <b class="logo-icon">
-                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                        <!-- Light Logo icon -->
-                        <img
-                                src="{% static 'single_pages/index/images/duksung_symbol.png' %}"
-                                alt="Duksung Symbol"
-                                style="width: 60px; height: auto"
-                        />
-                    </b>
-                    <!-- Logo text -->
-                    <span class="logo-text">
-                                <!-- Light Logo text -->
-                                DUKSUNG
-                            </span>
+                         <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Light Logo icon -->
+                                <img
+                                  src="{%static 'single_pages/images/logo.png'%}"
+                                    alt="Duksung Symbol"
+                                    style="width: 170px; height: auto"
+                                />
+                            </b>
+
                 </a>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -329,8 +325,10 @@
                                 aria-expanded="false"
                                 style="background-color:rgb(183, 0, 80)"
 
-                        ><i class="mdi mdi-border-all"></i
-                        ><span class="hide-menu"
+                        ><i class="mdi mdi-border-all"                                style="color:white"
+></i
+                        ><span class="hide-menu"                                 style="color:white"
+
                         >질문 리스트</span
                         ></a
                         >
@@ -342,7 +340,7 @@
                                 href="{% url 'post:create_post' %}"
                                 aria-expanded="false"
                         ><i class="mdi mdi-account-network"></i
-                        ><span class="hide-menu">질문 등록</span></a
+                        ><span class="hide-menu" >질문 등록</span></a
                         >
                     </li>
 
