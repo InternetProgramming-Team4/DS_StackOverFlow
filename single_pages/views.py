@@ -60,17 +60,21 @@ def signup(request):
             new_user = User.objects.create_user(username=username, email=email, password=password)
             Profile.objects.create(user=new_user, major=major)
             # 새로운 사용자 User에 추가
-
-            userp = User.objects.get(username='유제혁')
+            try:
+                userp = User.objects.get(username='유제혁')
+            except User.DoesNotExist:
+                userp = None
 
             # 사용자 프로필 가져오기
-            user_profile = Profile.objects.get(user=userp)
+            try:
+                user_profile = Profile.objects.get(user=userp)
+                # is_who 속성
+                user_profile.is_who = True
+                user_profile.save()
+            except Profile.DoesNotExist:
+                user_profile = None
 
-            # is_who 속성
-            user_profile.is_who = True
-            user_profile.save()
-
-            return redirect('../')
+            return redirect('/')
             # 회원가입 완료 후에 메인페이지로 이동
 
     else:
@@ -90,11 +94,11 @@ def login_view(request):
 
         if me is not None:
             auth_login(request, me)  # 사용자 로그인
-            return redirect('../')
+            return redirect('/')
 
         else:
             messages.error(request, '아이디 혹은 비밀번호가 올바르지 않습니다.')
-            return redirect('./')
+            return redirect('/login/')
 
     else:
         return render(request, 'single_pages/login.html')
