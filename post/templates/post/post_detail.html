@@ -313,12 +313,12 @@
 
             <!-- Post update icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Edit Post</a>
+                <a class="btn btn-info btn-sm float-end" href="{% url 'post:update_post' pk=object.pk %}" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 2px solid rgb(255, 255, 255)">Edit Post</a>
             {% endif %}
 
             <!-- Post delete icon -->
             {% if user.is_authenticated and user == post.author %}
-                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">DELETE Post</a>
+                <a id="deleteBtn" class="btn btn-info btn-sm float-end" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 2px solid rgb(255, 255, 255)">DELETE Post</a>
 
                 <script>
                     document.getElementById('deleteBtn').addEventListener('click', function() {
@@ -416,12 +416,12 @@
 
                             <!-- Comment update icon -->
                             {% if user.is_authenticated and comment.author == user %}
-                                <a role="button" class="btn btn-sm btn-info float-end" id="comment-{{comment.pk}}-update-btn" onclick="toggleEditForm({{ comment.pk }})">EDIT</a>
+                                <a role="button" class="btn btn-sm btn-info float-end" id="comment-{{comment.pk}}-update-btn" onclick="toggleEditForm({{ comment.pk }})" style="background-color:rgb(183, 0, 80); color:white; border: 2px solid rgb(255, 255, 255)">EDIT</a>
                             {% endif %}
 
                             <!-- Comment delete icon -->
                             {% if user.is_authenticated and comment.author == user %}
-                                <a id="comment-{{comment.pk}}-delete-btn" class="btn btn-sm btn-info float-end" role="button">DELETE</a>
+                                <a id="comment-{{comment.pk}}-delete-btn" class="btn btn-sm btn-info float-end" role="button" style="background-color:rgb(183, 0, 80); color:white; border: 2px solid rgb(255, 255, 255)">DELETE</a>
 
                                 <script>
                                     document.getElementById('comment-{{comment.pk}}-delete-btn').addEventListener('click', function() {
@@ -452,14 +452,14 @@
                             {% if user.is_authenticated %}
                                 <form method="post" action="{% url 'post:upvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
                                   {% csrf_token %}
-                                  <button type="submit" name="vote_type" value="1">Upvote</button>
+                                  <button type="submit" name="vote_type" value="1">👍</button>
                                 </form>
 
                                 <p>Vote Count: {{ comment_vote_counts|from_dict:comment.pk }}</p>
 
                                 <form method="post" action="{% url 'post:downvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
                                   {% csrf_token %}
-                                  <button type="submit" name="vote_type" value="-1">Downvote</button>
+                                   <button type="submit" name="vote_type" value="1">👎</button>
                                 </form>
                             {% else %}
                                 <p>Login to vote</p>
