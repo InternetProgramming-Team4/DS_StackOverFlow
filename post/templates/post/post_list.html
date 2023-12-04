@@ -442,6 +442,7 @@
                                 <h2 class="card-title">{{ p.title }}</h2>
                                 <p class="card-text">{{ p.content | truncatewords:45 }}</p>
                                 <p>댓글 수: {{ p.comment_set.count }}</p>
+                                <p>투표 수: {{ p.get_vote_count }}</p>
                                 <a href="{{ p.get_absolute_url }}" class="btn btn-primary" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Read More &rarr;</a>
                             </div>
                             <div class="card-footer text-muted">
