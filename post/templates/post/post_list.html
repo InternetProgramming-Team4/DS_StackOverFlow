@@ -126,6 +126,16 @@
         margin-right: 10px; /* 사진 아이콘과 제목 사이의 간격을 조절하려면 이 값을 원하는 크기로 조절하세요 */
     }
 
+            .card-img-top {
+        max-width: 100%;  /* 이미지의 최대 가로 크기를 100%로 설정 */
+        height: auto;     /* 세로 크기를 가로 크기에 맞게 자동 조절 */
+    }
+
+            .card {
+        max-width: 800px;  /* 전체 카드의 최대 가로 크기를 조절 */
+        margin: 10px;      /* 카드 간격을 조절 */
+    }
+
     </style>
 
 </head>
@@ -211,13 +221,14 @@
                             <span class="font-16">Search</span></a
                         >
 
-                        <form class="app-search position-absolute">
+                        <form method="GET" action="{% url 'post:post_searched'%}" class="app-search position-absolute">
                             <input
                                     type="text"
                                     class="form-control"
+                                    name="query"
                                     placeholder="Search &amp; enter"
                             />
-                            <a class="srh-btn"
+                            <a class="srh-btn" type="submit"
                             ><i class="mdi mdi-window-close"></i
                             ></a>
                         </form>
@@ -326,7 +337,7 @@
                     <li class="sidebar-item">
                         <a
                                 class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html"
+                                href="{% url 'post:create_post' %}"
                                 aria-expanded="false"
                         ><i class="mdi mdi-account-network"></i
                         ><span class="hide-menu">질문 등록</span></a
@@ -342,6 +353,7 @@
                         ><span class="hide-menu">내 페이지</span></a
                         >
                     </li>
+                </ul>
             </nav>
             <!-- End Sidebar navigation -->
         </div>
@@ -365,149 +377,22 @@
                             <li class="breadcrumb-item"><a href="index.html" class="link"><i
                                     class="mdi mdi-home-outline fs-4"></i></a></li>
                             <li class="breadcrumb-item active" aria-current="page">질문 리스트</li>
+                            {% if major %}
                             <li class="breadcrumb-item active" aria-current="page">{{major}}</li>
+                            {% endif %}
+                            {% if slug %}
+                            <li class="breadcrumb-item active" aria-current="page">{{slug}}</li>
+                            {% endif %}
                         </ol>
                     </nav>
+                    {% if major %}
                     <h1 class="mb-0 fw-bold">{{major}}</h1>
-                </div>
-            </div>
-<<<<<<< HEAD
-=======
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-
-
-
-<body>
-
-<div class="container my-3">
-        <div class="row">
-            <div class="col-md-8 col-lg-9" id="main-area">
-
-    {% if post_list.exists %}
-                {% if major %}
-                <h1>질문 상세 페이지
-                    <span class="badge bg-secondary">{{ major }}</span>
-                </h1>
-                {% endif %}
-                {% if slug %}
-                <h1>질문 상세 페이지
-                    <span class="badge bg-secondary">{{ slug }}</span>
-                </h1>
-                {% endif %}
-                {% if major %}
-                    <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
-                {% endif %}
-                {% if slug %}
-                    <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
-                {% endif %}
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="latest" checked>
-                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio1">최신순</label>
-
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="popular">
-                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio2">인기순</label>
-
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="recommended">
-                      <label class="btn btn-outline-primary btn-custom-color" for="btnradio3">추천순</label>
-                    </div>
-                </form>
-
-
-            {% for p in post_list %}
-                <!-- Blog Post -->
-                <div class="card mb-4">
-                    {% if p.head_image %}
-                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
-                    {% else %}
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
                     {% endif %}
-                    <div class="card-body">
-
-                        {% if p.major %}
-                            <span class="badge bg-secondary">{{ p.major }}</span>
-                        {% else %}
-                            <span class="badge bg-secondary">미분류</span>
-                        {% endif %}
-
-                        <h2 class="card-title">{{ p.title }}</h2>
-                        <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-                        <p>댓글 수: {{ p.comment_set.count }}</p>
-
-                        {% if p.tags.exists %}
-                        <i class="fa fa-tags"></i>
-                            {% for tag in p.tags.iterator %}
-                                <a href="{{ tag.get_absolute_url }}"><span class="badge bg-secondary">{{ tag }}</span></a>
-                            {% endfor %}
-                        <br/><br/>
-                        {% endif %}
-
-                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on {{ p.create_at }}
-                        <a href="#">개발 예정</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% else %}
-                <h3>아직 게시물이 없습니다.</h3>
-            {% endif %}
-
-            <!-- Pagination -->
-            <ul class="pagination justify-content-center mb-4">
-                <li class="page-item">
-                    <a class="page-link" href="#">&larr; Older</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Newer &rarr;</a>
-                </li>
-            </ul>
-
+                    {% if slug %}
+                    <h1 class="mb-0 fw-bold">{{slug}}</h1>
+                    {% endif %}
                 </div>
             </div>
-    </div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-
-                    <!-- Column -->
-                </div>
-                <!-- Row -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
->>>>>>> 51b230becbb35267c9ebe15d49ef7a0741961713
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -515,215 +400,211 @@
         <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <!-- Row -->
 
+
+        <body>
+
+        <div class="container my-3">
             <div class="row">
+                <div class="col-md-8 col-lg-8" id="main-area">
+
+                    {% if post_list.exists %}
+                    {% if major %}
+                    <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
+                        {% endif %}
+                        {% if slug %}
+                        <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
+                            {% endif %}
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                                       value="latest" checked>
+                                <label class="btn btn-outline-primary btn-custom-color" for="btnradio1">최신순</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                                       value="popular">
+                                <label class="btn btn-outline-primary btn-custom-color" for="btnradio2">인기순</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                                       value="recommended">
+                                <label class="btn btn-outline-primary btn-custom-color" for="btnradio3">추천순</label>
+                            </div>
+                        </form>
 
 
-<div class="col-lg-8">
-    <div class="card">
-        <div class="comment-widgets scrollable">
-            <!-- Comment Row -->
-            {% for p in post_list %}
-            <div class="d-flex flex-row comment-row">
-                <!--<div class="p-2"><img src="../assets/images/users/4.jpg" alt="user" width="50"
-                        class="rounded-circle"></div>-->
-                <div class="comment-text active w-60">
-                    {% if p.major %}
-                        <span class="badge bg-secondary">{{ p.major }}</span>
-                    {% else %}
-                        <span class="badge bg-secondary">미분류</span>
-                    {% endif %}
+                        {% for p in post_list %}
+                        <!-- Blog Post -->
+                        <div class="card mb-4">
+                            {% if p.head_image %}
+                           <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap" style="object-fit: cover; height: 200px;">
 
-<<<<<<< HEAD
-                    <h2 class="card-title">
-                        <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
-                    </h2>
-=======
-        <!--Custom JavaScript -->
-        <script src=" {% static 'single_pages/index/js/custom.js' %}"></script>
-        <!--This page JavaScript -->
-        <!--chartis chart-->
-        <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
-        <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
-        <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
-        <script>
-            const radios = document.querySelectorAll('.btn-check');
-            radios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    document.getElementById('sortForm').submit();
-                });
-            });
-
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const btnradio = document.querySelectorAll(".btn-check");
-
-                btnradio.forEach(btn => {
-                    btn.addEventListener("click", function() {
-                        btnradio.forEach(radio => {
-                            radio.checked = false;
-                            localStorage.removeItem(radio.id);
-                        });
-                        this.checked = true;
-                        localStorage.setItem(this.id, "checked");
-                    });
-                });
-
-                btnradio.forEach(btn => {
-                    const checked = localStorage.getItem(btn.id);
-                    if (checked === "checked") {
-                        btn.checked = true;
-                    }
-                });
-            });
-        </script>
-
-
-
-
-
-                      {% if p.image %} {# 이미지가 있는지 확인 #}
-                        <img src="{% static 'post/image/laptop.png' %}" alt="Post Image" class="post-image-icon">
-                    {% endif %}
-
-                    {% if p.content|wordcount > 45 %}
-                        <p class="card-text w-100">{{ p.content|truncatewords:45 }} <a
-                                href="{{ p.get_absolute_url }}"></a></p>
-                    {% else %}
-                        <p class="card-text w-100">{{ p.content }}</p>
-                    {% endif %}
-                    {% if p.tags.exists %}
-                        <i class="fa fa-tags"></i>
-                        {% for tag in p.tags.iterator %}
-                            <a href="{{ tag.get_absolute_url }}"><span class="badge bg-secondary">{{ tag }}</span></a>
+                            {% endif %}
+                            <div class="card-body">
+                                <h2 class="card-title">{{ p.title }}</h2>
+                                <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                                <p>댓글 수: {{ p.comment_set.count }}</p>
+                                <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Posted on {{ p.updated_at }}
+                            </div>
+                        </div>
                         {% endfor %}
-                        <br/><br/>
-                    {% endif %}
 
-                    <div class="comment-footer ">
-                        <span class="text-muted float-end">{{p.created_at}}</span>
-                    </div>
+
+                        {% else %}
+                        <h3>아직 게시물이 없습니다.</h3>
+                        {% endif %}
+
+                    </form>
                 </div>
-            </div>
-            {% endfor %}
-            <!-- Comment Row -->
-        </div>
-    </div>
-</div>
-
-
                 <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">전공 선택</h4>
-                            <div
-                                    class="mt-5 pb-3 d-flex align-items-center"
-                            >
-                                <a href="./컴퓨터공학전공/">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">전공 선택</h4>
+                        <div
+                                class="mt-5 pb-3 d-flex align-items-center"
+                        >
+                            <a href="../컴퓨터공학전공/">
                                             <span class=" btn-circle d-flex align-items-center"
                                                   style="width: 50px; height: 50px;">
                                                 <img src="{% static 'post/image/laptop.png' %}" alt="Computer Icon"
                                                      class="rounded-circle img-fluid"
                                                      style="object-fit: cover; width: 100%; height: 100%;"/>
                                             </span>
+                            </a>
+                            <div class="ms-3">
+                                <a href="../컴퓨터공학전공/">
+                                    <h5 class="mb-0 fw-bold">
+                                        컴퓨터공학전공
+                                    </h5>
                                 </a>
-                                <div class="ms-3">
-                                    <a href="./컴퓨터공학전공/">
-                                        <h5 class="mb-0 fw-bold">
-                                            컴퓨터공학전공
-                                        </h5>
-                                    </a>
-                                </div>
-
                             </div>
-                            <div class="py-3 d-flex align-items-center">
-                                        <span class=" btn-circle d-flex align-items-center"
-                                              style="width: 50px; height: 50px;">
+
+                        </div>
+                        <div
+                                class="mt-5 pb-3 d-flex align-items-center"
+                        >
+                            <a href="../경영학전공/">
+                                            <span class=" btn-circle d-flex align-items-center"
+                                                  style="width: 50px; height: 50px;">
                                                 <img src="{% static 'post/image/economy2.png' %}" alt="Computer Icon"
                                                      class="rounded-circle img-fluid"
                                                      style="object-fit: cover; width: 100%; height: 100%;"/>
                                             </span>
-                                <div class="ms-3">
+                            </a>
+                            <div class="ms-3">
+                                <a href="../경영학전공/">
                                     <h5 class="mb-0 fw-bold">
                                         경영학전공
                                     </h5>
-                                </div>
+                                </a>
                             </div>
-                            <div class="py-3 d-flex align-items-center">
-                                        <span class=" btn-circle d-flex align-items-center"
-                                              style="width: 50px; height: 50px;">
+
+                        </div>
+                        <div
+                                class="mt-5 pb-3 d-flex align-items-center"
+                        >
+                            <a href="../수학전공/">
+                                            <span class=" btn-circle d-flex align-items-center"
+                                                  style="width: 50px; height: 50px;">
                                                 <img src="{% static 'post/image/math.png' %}" alt="Computer Icon"
                                                      class="rounded-circle img-fluid"
                                                      style="object-fit: cover; width: 100%; height: 100%;"/>
                                             </span>
-                                <div class="ms-3">
+                            </a>
+                            <div class="ms-3">
+                                <a href="../수학전공/">
                                     <h5 class="mb-0 fw-bold">
                                         수학전공
                                     </h5>
-                                </div>
+                                </a>
                             </div>
-                            <div class="py-3 d-flex align-items-center">
-                                         <span class=" btn-circle d-flex align-items-center"
-                                               style="width: 50px; height: 50px;">
+
+                        </div>
+                        <div
+                                class="mt-5 pb-3 d-flex align-items-center"
+                        >
+                            <a href="../미술사학전공/">
+                                            <span class=" btn-circle d-flex align-items-center"
+                                                  style="width: 50px; height: 50px;">
                                                 <img src="{% static 'post/image/art.png' %}" alt="Computer Icon"
                                                      class="rounded-circle img-fluid"
                                                      style="object-fit: cover; width: 100%; height: 100%;"/>
                                             </span>
-                                <div class="ms-3">
+                            </a>
+                            <div class="ms-3">
+                                <a href="../미술사학전공/">
                                     <h5 class="mb-0 fw-bold">
                                         미술사학전공
                                     </h5>
-                                </div>
+                                </a>
                             </div>
 
-                            <div class="pt-3 d-flex align-items-center">
-                                         <span class=" btn-circle d-flex align-items-center"
-                                               style="width: 50px; height: 50px;">
+                        </div>
+
+
+                        <div
+                                class="mt-5 pb-3 d-flex align-items-center"
+                        >
+                            <a href="../화학전공/">
+                                            <span class=" btn-circle d-flex align-items-center"
+                                                  style="width: 50px; height: 50px;">
                                                 <img src="{% static 'post/image/chemical.png' %}" alt="Computer Icon"
                                                      class="rounded-circle img-fluid"
                                                      style="object-fit: cover; width: 100%; height: 100%;"/>
                                             </span>
-                                <div class="ms-3">
+                            </a>
+                            <div class="ms-3">
+                                <a href="../화학전공/">
                                     <h5 class="mb-0 fw-bold">
                                         화학전공
                                     </h5>
-                                </div>
+                                </a>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Column -->
+            </div>
         </div>
-        <!-- Row -->
-        <!-- ============================================================== -->
-        <!-- End PAge Content -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right sidebar -->
-        <!-- ============================================================== -->
-        <!-- .right-sidebar -->
-        <!-- ============================================================== -->
-        <!-- End Right sidebar -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
 
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                crossorigin="anonymous"></script>
+
+        <!-- Column -->
+        </body>
+    </div>
+    <!-- Row -->
     <!-- ============================================================== -->
-    <!-- End footer -->
+    <!-- End PAge Content -->
     <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+
 </div>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
@@ -750,6 +631,39 @@
 <script src="{% static 'single_pages/index/libs/chartist/dist/chartist.min.js' %}"></script>
 <script src=" {% static 'single_pages/index/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js'%}"></script>
 <script src="{% static 'single_pages/index/js/pages/dashboards/dashboard1.js' %}"></script>
+<script>
+    const radios = document.querySelectorAll('.btn-check');
+    radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.getElementById('sortForm').submit();
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnradio = document.querySelectorAll(".btn-check");
+
+        btnradio.forEach(btn => {
+            btn.addEventListener("click", function() {
+                btnradio.forEach(radio => {
+                    radio.checked = false;
+                    localStorage.removeItem(radio.id);
+                });
+                this.checked = true;
+                localStorage.setItem(this.id, "checked");
+            });
+        });
+
+        btnradio.forEach(btn => {
+            const checked = localStorage.getItem(btn.id);
+            if (checked === "checked") {
+                btn.checked = true;
+            }
+        });
+    });
+</script>
+
 
 <!-- <script>
 // JavaScript로 아이콘 토글 구현
