@@ -287,6 +287,9 @@ def post_sort(request, slug):
         posts = Post.objects.filter(major=major).annotate(
             upvote_count=Count('votes', filter=Q(votes__score=1)) - Count('votes', filter=Q(votes__score=-1))
         ).order_by('-upvote_count', '-created_at')
+    else:
+        # 다른 정렬 옵션에 대한 기본값 설정
+        posts = Post.objects.filter(major=major).order_by('-created_at')
 
     return render(request, 'post/post_list.html',
                   {'post_list': posts,

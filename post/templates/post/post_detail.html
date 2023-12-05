@@ -414,6 +414,18 @@
                         {% endif %}
                         <div class="ms-3">
 
+                            <span class="fw-bold">
+
+                                {% if comment.author.profile.is_who %}
+                                    {{comment.author}}
+                                {% else %}
+                                    익명덕우 [{{ comment.author.profile.major }}]
+                                {% endif %}
+                                --
+                                {{ comment.created_at }}
+
+                            </span>
+
                             <!-- Comment update icon -->
                             {% if user.is_authenticated and comment.author == user %}
                                 <a role="button" class="btn btn-sm btn-info float-end" id="comment-{{comment.pk}}-update-btn" onclick="toggleEditForm({{ comment.pk }})" style="background-color:rgb(183, 0, 80); color:white; border: 2px solid rgb(255, 255, 255)">EDIT</a>
@@ -432,17 +444,7 @@
                                 </script>
                             {% endif %}
 
-                            <div class="fw-bold">
 
-                                {% if comment.author.profile.is_who %}
-                                    {{comment.author}}
-                                {% else %}
-                                    익명덕우
-                                {% endif %}
-                                ----
-                                {{ comment.created_at }}
-
-                            </div>
                             <div id="comment-content-{{ comment.pk }}">{{ comment.content | linebreaks }}</div>
 
                             <!-- 수정 폼이 표시될 영역 -->
