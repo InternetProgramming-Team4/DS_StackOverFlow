@@ -437,7 +437,7 @@
                                 {% if comment.author.profile.is_who %}
                                     {{comment.author}}
                                 {% else %}
-                                    익명덕우
+                                    익명덕우 [{{ comment.author.profile.major }}]
                                 {% endif %}
                                 ----
                                 {{ comment.created_at }}
