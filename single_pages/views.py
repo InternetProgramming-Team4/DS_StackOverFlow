@@ -104,21 +104,7 @@ def login_view(request):
     else:
         return render(request, 'single_pages/login.html')
 
+
 def logout(request):
     auth.logout(request)
     return redirect('/')
-
-
-# 로그아웃 상태에서 저장을 누르게 되면 로그인창으로 이동
-@login_required
-def edit_major(request):
-    if request.method == 'POST':
-        selected_major = request.POST.get('major')
-        profile = Profile.objects.get(user=request.user)
-        profile.major = selected_major
-        profile.save()
-        return redirect('/MyPage/')  # 저장 후 프로필 페이지로 이동
-
-    else:
-        return redirect('/MyPage/')
-
