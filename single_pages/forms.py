@@ -26,8 +26,3 @@ class SignUpForm(forms.Form):
 
         elif password is None:   # TypeError: object of type 'NoneType' has no len() 오류 때문에 추가
             self.add_error('password', '비밀번호를 입력하세요.')
-
-
-
-
-

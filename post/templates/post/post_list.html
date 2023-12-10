@@ -376,12 +376,12 @@
                         <ol class="breadcrumb mb-0 d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="/" class="link"><i
                                     class="mdi mdi-home-outline fs-4"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">질문 리스트</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="/post/" class="link">질문 리스트</a></li>
                             {% if major %}
-                            <li class="breadcrumb-item active" aria-current="page">{{major}}</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="./" class="link">{{major}}</a></li>
                             {% endif %}
                             {% if slug %}
-                            <li class="breadcrumb-item active" aria-current="page">{{slug}}</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="./" class="link">{{slug}}</a></li>
                             {% endif %}
                         </ol>
                     </nav>
@@ -410,12 +410,12 @@
 
                     {% if post_list.exists %}
                     {% if query %}
-                    <form id="sortForm" action="{% url 'post:post_search_sort' query=query %}" method="GET">
+                        <form id="sortForm" action="{% url 'post:post_search_sort' query=query %}" method="GET">
                     {% elif major %}
-                    <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
-                        {% elif slug %}
+                        <form id="sortForm" action="{% url 'post:post_sort' slug=major %}" method="GET">
+                    {% elif slug %}
                         <form id="sortForm" action="{% url 'post:post_sort' slug=slug %}" method="GET">
-                            {% endif %}
+                    {% endif %}
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
                                        value="latest" checked>
@@ -457,7 +457,6 @@
                         <h3>아직 게시물이 없습니다.</h3>
                         {% endif %}
 
-                    </form>
                 </div>
                 <div class="col-lg-4">
                 <div class="card">

@@ -281,7 +281,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 d-flex align-items-center">
                               <li class="breadcrumb-item"><a href="/" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-                              <li class="breadcrumb-item active" aria-current="page">내 페이지</li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="/MyPage/" class="link">내 페이지</a></li>
                             </ol>
                           </nav>
                         <h1 class="mb-0 fw-bold">내 페이지</h1>
@@ -326,51 +326,18 @@
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
-<!--                               <form class="form-horizontal form-material mx-2">-->
                                 <div class="form-group">
                                     <small class="text-muted">이름</small>
-                                    {% if user.is_authenticated %}
                                     <h6>{{ user }}</h6>
-                                    {% else %}
-                                    <h6> </h6>
-                                    {% endif %}
                                 </div>
-                                <form action="{% url 'single_pages:edit_major' %}" method="POST">
-                                    {% csrf_token %}
-                                    <div>
-
-                                        <small class="text-muted p-t-30 db">전공</small>
-                                        {% if user.is_authenticated %}
-                                        <h6>{{ user.profile.major }}</h6>
-                                        <label for="major" style="font-size: 9.5pt;">전공 재설정: </label>
-                                        <select name="major" id="major" style="height:21px;">
-                                            <option value="IT미디어공학전공">IT미디어공학전공</option>
-                                            <option value="경영학전공">경영학전공</option>
-                                            <option value="수학전공">수학전공</option>
-                                            <option value="실내디자인전공">실내디자인전공</option>
-                                            <option value="컴퓨터공학전공">컴퓨터공학전공</option>
-                                        </select>
-                                        <button type="submit" style="height:25px;">저장</button>
-                                        {% else %}
-                                        <p> </p>
-                                        <p> </p>
-                                        {% endif %}
-                                    </div>
-                                </form>
+                                <div class="form-group">
+                                    <small class="text-muted p-t-30 db">전공</small>
+                                    <h6>{{ user.profile.major }}</h6>
+                                </div>
                                 <div class="form-group">
                                     <small class="text-muted p-t-30 db">이메일</small>
                                     <h6>{{ user.email }}</h6>
                                 </div>
-<!--                                    <div class="form-group">-->
-<!--                                        <small class="text-muted p-t-30 db">비밀번호</small>-->
-<!--                                           &lt;!&ndash; <div class="col-md-12">-->
-<!--                                            <input type="password" value="password"-->
-<!--                                                class="form-control form-control-line">-->
-<!--                                        </div>&ndash;&gt;-->
-<!--                                         <h6 type="password"></h6>-->
-<!--                                    </div>-->
-
-<!--                                </form>-->
                             </div>
                         </div>
                     </div>

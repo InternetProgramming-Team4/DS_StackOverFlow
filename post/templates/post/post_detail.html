@@ -364,7 +364,8 @@
               <button type="submit" name="vote_type" value="-1">👎</button>
             </form>
             {% else %}
-                <p>Login to vote</p>
+                <p style="color:darkgrey; font-size: small">로그인 후 투표가 가능합니다.</p>
+                <p>추천 수: {{ vote }}</p>
             {% endif %}
 
             <hr>
@@ -385,7 +386,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary" style="background-color:rgb(183, 0, 80); color:white; border: 1px solid rgb(183, 0, 80)">Submit </button>
                 {% else %}
-                    <a role="button" class="btn btn-sm" href="#" data-toggle="modal" data-target="#loginModal">로그인하고 댓글을 남겨주세요</a>
+                    <p style="color:darkgrey; font-size: small">로그인 후 댓글을 남겨주세요.</p>
                 {% endif %}
                 </form>
 
@@ -404,7 +405,8 @@
 
                         {% if comment.author.profile.is_who %}
                         <div class="flex-shrink-0" >
-                            <img src="{% static 'single_pages/images/pro.png' %}" alt="Profile Picture" class="rounded-circle" width="50" />
+                            <!-- 교수 기본 이미지 -->
+                            <img src="{% static 'single_pages/images/pro.png' %}" alt="Profile Picture" class="rounded-circle" width="40" />
                         </div>
                         {% else %}
                             <!-- 기본 이미지 -->
@@ -417,7 +419,7 @@
                             <span class="fw-bold">
 
                                 {% if comment.author.profile.is_who %}
-                                    {{comment.author}}
+                                    익명교수 [{{ comment.author.profile.major }}]
                                 {% else %}
                                     익명덕우 [{{ comment.author.profile.major }}]
                                 {% endif %}
@@ -457,14 +459,15 @@
                                   <button type="submit" name="vote_type" value="1">👍</button>
                                 </form>
 
-                                <p>Vote Count: {{ comment_vote_counts|from_dict:comment.pk }}</p>
+                                <p>추천 수: {{ comment_vote_counts|from_dict:comment.pk }}</p>
 
                                 <form method="post" action="{% url 'post:downvote_comment' slug=object.major.slug pk=object.pk comment_pk=comment.pk %}">
                                   {% csrf_token %}
                                    <button type="submit" name="vote_type" value="1">👎</button>
                                 </form>
                             {% else %}
-                                <p>Login to vote</p>
+                                <p style="color:darkgrey; font-size: small">로그인 후 댓글을 남겨주세요.</p>
+                                <p>추천 수: {{ comment_vote_counts|from_dict:comment.pk }}</p>
                             {% endif %}
 
                             {% if comment.created_at != comment.modified_at %}
